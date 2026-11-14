@@ -1,0 +1,15 @@
+# Productos de HyP3, huellas y derivados se bajan o se calculan; nunca se suben.
+derivados/
+sitio/
+sitio.nuevo/
+catalogo/
+*.zip
+*.parquet
+*.tif
+*.csv
+*.part
+__pycache__/
+.pytest_cache/
+.venv/
+.mypy_cache/
+.ruff_cache/
