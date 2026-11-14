@@ -1,0 +1,34 @@
+[project]
+name = "incendios-dano-edificaciones"
+version = "1.0.0"
+description = "Daño a edificaciones en el incendio de Viña del Mar, febrero de 2024: coherencia interferométrica de Sentinel-1 validada con Copernicus EMS"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Camilo López Barra" }]
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+src = ["scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "SIM", "RUF", "ANN", "PTH", "S"]
+ignore = ["E501", "ANN401", "RUF001", "RUF002", "RUF003", "S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ANN"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["scripts", "tests"]
+explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = ["rasterio.*", "scipy.*", "shapely.*", "pyogrio.*", "geopandas.*", "h3.*", "asf_search.*", "hyp3_sdk.*", "s2sphere.*", "sklearn.*", "matplotlib.*", "PIL.*", "pandas.*", "requests.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

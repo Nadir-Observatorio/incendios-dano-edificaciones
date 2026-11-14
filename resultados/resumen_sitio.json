@@ -1,0 +1,287 @@
+{
+  "caso": "Daño a edificaciones en el incendio de Viña del Mar, febrero de 2024",
+  "protocolo_sha256": "de1993790a4e7485aeef3d64749a490dd735679feb5575263bc61ca727387f5d",
+  "enmiendas_sha256": [
+    "8ff741dde5bb5b2bbf391fe7652e5088640c2c02b0ac4c28818d0419a122bc1e",
+    "82f1000d908f662e9e24596232a0832b493aa767d117af95012dd724d4341b27"
+  ],
+  "metricas_sha256": "70960bb68a8f85c5427f7a21e063a3e2fc9362e8803a1559e4b99f35970686e0",
+  "licencia": "CC BY 4.0",
+  "avisos": [
+    "Contains modified Copernicus Sentinel data 2023-2024, processed by ESA.",
+    "Sentinel-1 Burst InSAR products processed by ASF DAAC HyP3 2026 using ISCE software (hyp3_isce2 3.0.2, ISCE 2.6.5).",
+    "Copernicus Emergency Management Service (© 2024 European Union), EMSN188 P08 Detailed damage assessment, y EMSR715 AOI01 Delineation Map v2.",
+    "Google Open Buildings (CC BY 4.0).",
+    "Severidad de Sentinel-2: Nadir, incendio de Viña del Mar 2024 (CC BY 4.0)."
+  ],
+  "lectura": "Dano probable segun radar; no es un dictamen sobre cada vivienda. Copernicus EMS, SENAPRED y MINVU no validaron estos resultados.",
+  "cifras": {
+    "p1_sensibilidad_radar": {
+      "valor": 0.7939011566771819,
+      "ic95": [
+        0.5994641168782238,
+        0.8968641865150428
+      ],
+      "definicion": "Fraccion de edificaciones con dano segun EMSN188 detectadas por el radar (prueba)",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.sensibilidad"
+    },
+    "p1_sensibilidad_destruidas": {
+      "valor": 0.8857350800582242,
+      "ic95": [
+        0.7653883144450655,
+        0.9435754317411558
+      ],
+      "definicion": "Idem, grado Destroyed",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.sensibilidad.Destroyed"
+    },
+    "p1_sensibilidad_danadas": {
+      "valor": 0.7771084337349398,
+      "ic95": [
+        0.5759617021276595,
+        0.887917289486796
+      ],
+      "definicion": "Idem, grado Damaged",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.sensibilidad.Damaged"
+    },
+    "p1_sensibilidad_posible_dano": {
+      "valor": 0.4530386740331492,
+      "ic95": [
+        0.22176300302715976,
+        0.7236710981065663
+      ],
+      "definicion": "Idem, grado Possible damage",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.sensibilidad.Possible damage"
+    },
+    "p2_sensibilidad_optico": {
+      "valor": 0.5297211993687533,
+      "ic95": [
+        0.46590206024497954,
+        0.5642403798465444
+      ],
+      "definicion": "Fraccion detectada por Sentinel-2 (Etapa 1, umbral A) en las mismas edificaciones",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.p2.A.sensibilidad_s2"
+    },
+    "p2_sensibilidad_union": {
+      "valor": 0.8874276696475539,
+      "ic95": [
+        0.7711528375743185,
+        0.9468563950074137
+      ],
+      "definicion": "Fraccion detectada por optico o radar",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.p2.A.sensibilidad_union"
+    },
+    "p2_suma_del_radar": {
+      "valor": 0.35770647027880065,
+      "ic95": [
+        0.28075767964893034,
+        0.4014342498448511
+      ],
+      "definicion": "Union menos optico solo",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.p2.A.diferencia_union_menos_s2"
+    },
+    "p2_rescate_radar": {
+      "valor": 0.7606263982102909,
+      "ic95": [
+        0.5565926647525293,
+        0.8796422406388519
+      ],
+      "definicion": "Fraccion detectada por el radar entre las que el optico no detecto",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.p2.A.s1_entre_no_detectadas_s2"
+    },
+    "p3_falsa_alarma_negativos": {
+      "valor": 0.043001566282215575,
+      "ic95": [
+        0.029549863922879838,
+        0.060479405964455044
+      ],
+      "definicion": "Edificaciones sin dano registrado en el area de EMSN188 marcadas por el radar",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.falsa_alarma_negativos"
+    },
+    "p3_falsa_alarma_control": {
+      "valor": 0.012791394373458553,
+      "ic95": [
+        0.009948091567783575,
+        0.016097398241934017
+      ],
+      "definicion": "Edificaciones a mas de 2 km del area quemada de EMSR715 marcadas por el radar",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.falsa_alarma_control"
+    },
+    "p3_precision": {
+      "valor": 0.625,
+      "ic95": [
+        0.44940788702182655,
+        0.7128981638477373
+      ],
+      "definicion": "Fraccion de marcas del radar con dano registrado",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.precision"
+    },
+    "auc_roc": {
+      "valor": 0.9419006769555283,
+      "ic95": [
+        0.894061521314865,
+        0.9703484692082927
+      ],
+      "definicion": "Area bajo la curva ROC de la senal combinada",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_comb.auc_roc"
+    },
+    "p4_sensibilidad_ascendente": {
+      "valor": 0.6498422712933754,
+      "ic95": [
+        0.4561896185385611,
+        0.7863657332173074
+      ],
+      "definicion": "Sensibilidad solo con la orbita ascendente",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_asc.sensibilidad"
+    },
+    "p4_sensibilidad_descendente": {
+      "valor": 0.713459516298633,
+      "ic95": [
+        0.508341048773166,
+        0.8386415411583196
+      ],
+      "definicion": "Sensibilidad solo con la orbita descendente",
+      "particion": "prueba",
+      "conjunto_huellas": "principal",
+      "fuente": "derivados/t06/metricas.json#principal.metricas_prueba.z_des.sensibilidad"
+    },
+    "robustez_sensibilidad_radar_065": {
+      "valor": 0.7788873038516405,
+      "ic95": [
+        0.5910849799483024,
+        0.891692005073627
+      ],
+      "definicion": "Sensibilidad del radar con huellas de confianza >= 0,65",
+      "particion": "prueba",
+      "conjunto_huellas": "sensibilidad",
+      "fuente": "derivados/t06/metricas.json#sensibilidad.metricas_prueba.z_comb.sensibilidad"
+    },
+    "umbral_z": {
+      "valor": 1.4867586944350877,
+      "definicion": "Percentil 90 de la senal combinada en los negativos de ajuste",
+      "particion": "ajuste",
+      "fuente": "derivados/t06/metricas.json#principal.umbrales_ajuste.z_comb"
+    },
+    "puntos_emsn188": {
+      "valor": 7275,
+      "definicion": "Puntos de dano de EMSN188 P08",
+      "fuente": "derivados/t04/resumen_t04.json#puntos_p08"
+    },
+    "fraccion_puntos_sin_huella": {
+      "valor": 0.02323024054982818,
+      "definicion": "Puntos de EMSN188 sin huella de Google a 10 m o menos",
+      "fuente": "derivados/t04/resumen_t04.json#principal.fraccion_puntos_sin_huella"
+    },
+    "p5_r10_celdas": {
+      "valor": 8763,
+      "definicion": "P5, celdas (estimacion de modelo)",
+      "fuente": "derivados/t06/metricas.json#principal.p5_r10.celdas"
+    },
+    "p5_r10_celdas_sobre_umbral": {
+      "valor": 40,
+      "definicion": "P5, celdas_sobre_umbral (estimacion de modelo)",
+      "fuente": "derivados/t06/metricas.json#principal.p5_r10.celdas_sobre_umbral"
+    },
+    "verificacion_p5_celdas_sobre_umbral": {
+      "valor": 40,
+      "definicion": "Cruce de P5 con EMSR715 AOI01 v2",
+      "fuente": "tarea 07"
+    },
+    "verificacion_p5_sobre_umbral_que_tocan_area_quemada_emsr715": {
+      "valor": 1,
+      "definicion": "Cruce de P5 con EMSR715 AOI01 v2",
+      "fuente": "tarea 07"
+    },
+    "verificacion_p5_sobre_umbral_a_menos_de_500m_del_area_quemada": {
+      "valor": 2,
+      "definicion": "Cruce de P5 con EMSR715 AOI01 v2",
+      "fuente": "tarea 07"
+    },
+    "verificacion_p5_fraccion_que_toca_quemado_entre_las_demas_celdas_del_area_emsr715": {
+      "valor": 0.0022927891780350797,
+      "definicion": "Cruce de P5 con EMSR715 AOI01 v2",
+      "fuente": "tarea 07"
+    }
+  },
+  "archivos": {
+    "celdas_r10.parquet": {
+      "filas": 10458,
+      "licencia": "CC BY 4.0",
+      "sha256": "fa5518e803751dfa3c89ad3b2a646edfadf49b367eea130c32c38509552053e1",
+      "bytes": 201915
+    },
+    "celdas_r9.parquet": {
+      "filas": 2116,
+      "licencia": "CC BY 4.0",
+      "sha256": "84a8a4bc8ff12e588d3db76ba34086fa0e71594965bb8962ba25c3bb2c2dd379",
+      "bytes": 53217
+    },
+    "validacion.parquet": {
+      "filas": 96,
+      "licencia": "CC BY 4.0",
+      "sha256": "25e075e043e4452650ac8d57130db70f5dd074461b8a58ccf9836ef3239b1af6",
+      "bytes": 6561
+    },
+    "fig_coherencia_z.png": {
+      "ancho": 1200,
+      "alto": 1110,
+      "licencia": "CC BY 4.0",
+      "alt": "Mapa de la pérdida de coherencia del radar Sentinel-1 entre antes y después del incendio en Viña del Mar y alrededores, con el contorno del área analizada por Copernicus EMSN188 y el área quemada de EMSR715.",
+      "cita": "Fuente: Nadir. Sentinel-1 (Copernicus, procesado por ASF HyP3), Copernicus EMS EMSN188 y EMSR715, Google Open Buildings. CC BY 4.0. No validado por Copernicus EMS, SENAPRED ni MINVU.",
+      "sha256": "3cddd9e9b42a08bc98f50667e0422cbb2f9a968c48879f260a0c610d3230e1c4",
+      "bytes": 217489
+    },
+    "fig_optico_vs_union.png": {
+      "ancho": 1650,
+      "alto": 900,
+      "licencia": "CC BY 4.0",
+      "alt": "Dos mapas de celdas hexagonales comparan qué fracción de las edificaciones con daño según EMSN188 detecta Sentinel-2 solo y Sentinel-2 junto con Sentinel-1.",
+      "cita": "Fuente: Nadir. Sentinel-1 (Copernicus, procesado por ASF HyP3), Copernicus EMS EMSN188 y EMSR715, Google Open Buildings. CC BY 4.0. No validado por Copernicus EMS, SENAPRED ni MINVU.",
+      "sha256": "85c676f0cedf85e4ae4f3f6ce59e23246015c8f964b27285592e4a5901aeef32",
+      "bytes": 46961
+    },
+    "fig_p5_fuera_emsn188.png": {
+      "ancho": 1200,
+      "alto": 1110,
+      "licencia": "CC BY 4.0",
+      "alt": "Mapa de las pocas celdas fuera del área de EMSN188 donde la señal del radar supera el umbral, dispersas y lejos del área quemada de EMSR715.",
+      "cita": "Fuente: Nadir. Sentinel-1 (Copernicus, procesado por ASF HyP3), Copernicus EMS EMSN188 y EMSR715, Google Open Buildings. CC BY 4.0. No validado por Copernicus EMS, SENAPRED ni MINVU.",
+      "sha256": "da03491c4108b7d9554f573def41f5fcb326e5da1a37725da05100bb5f3e3c3d",
+      "bytes": 61964
+    },
+    "fig_sensibilidad.png": {
+      "ancho": 1290,
+      "alto": 720,
+      "licencia": "CC BY 4.0",
+      "alt": "Gráfico de barras con intervalos que compara la fracción de edificaciones dañadas detectada por Sentinel-2, Sentinel-1 y ambos, y por Sentinel-1 según el grado de daño.",
+      "cita": "Fuente: Nadir. Sentinel-1 (Copernicus, procesado por ASF HyP3), Copernicus EMS EMSN188 y EMSR715, Google Open Buildings. CC BY 4.0. No validado por Copernicus EMS, SENAPRED ni MINVU.",
+      "sha256": "85fd52f3320b2a6ee1be0e7ab4948a7b61da2d7028725cb68f3c0e06dbebd5b7",
+      "bytes": 21946
+    }
+  }
+}

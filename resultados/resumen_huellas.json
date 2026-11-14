@@ -1,0 +1,60 @@
+{
+  "protocolo_sha256": "de1993790a4e7485aeef3d64749a490dd735679feb5575263bc61ca727387f5d",
+  "enmienda_01_sha256": "8ff741dde5bb5b2bbf391fe7652e5088640c2c02b0ac4c28818d0419a122bc1e",
+  "particion_sha256": "2eaf84510b7c100ae5ca1f216ad7eb6c2f347bee011bb9b05fac81a4a7a61d2e",
+  "puntos_p08": 7275,
+  "conjuntos": {
+    "principal": {
+      "umbral_confianza": 0.75,
+      "huellas": 232284,
+      "puntos_por_metodo": {
+        "dentro": 4546,
+        "cercano": 2560,
+        "sin_huella": 169
+      },
+      "fraccion_puntos_sin_huella": 0.02323024054982818,
+      "huellas_por_rol_y_particion": {
+        "control|ajuste": 59601,
+        "control|prueba": 71767,
+        "negativo|ajuste": 16063,
+        "negativo|prueba": 21069,
+        "otro|ajuste": 29848,
+        "otro|prueba": 28281,
+        "positivo|ajuste": 3753,
+        "positivo|prueba": 1902
+      },
+      "positivos_por_grado": {
+        "Destroyed": 4392,
+        "Possible damage": 813,
+        "Damaged": 450
+      },
+      "fraccion_area_p18_cubierta": 0.25016400517254495
+    },
+    "sensibilidad": {
+      "umbral_confianza": 0.65,
+      "huellas": 355401,
+      "puntos_por_metodo": {
+        "dentro": 5077,
+        "cercano": 2152,
+        "sin_huella": 46
+      },
+      "fraccion_puntos_sin_huella": 0.006323024054982818,
+      "huellas_por_rol_y_particion": {
+        "control|ajuste": 92883,
+        "control|prueba": 109882,
+        "negativo|ajuste": 24771,
+        "negativo|prueba": 31562,
+        "otro|ajuste": 46996,
+        "otro|prueba": 43069,
+        "positivo|ajuste": 4135,
+        "positivo|prueba": 2103
+      },
+      "positivos_por_grado": {
+        "Destroyed": 4850,
+        "Possible damage": 884,
+        "Damaged": 504
+      },
+      "fraccion_area_p18_cubierta": 0.29046251714340326
+    }
+  }
+}

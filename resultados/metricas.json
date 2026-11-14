@@ -1,0 +1,911 @@
+{
+  "nota": "Evaluacion unica de la particion de prueba. Umbral: percentil 90 de cada senal en los negativos de ajuste. Intervalos 95 % por remuestreo de bloques H3 r8 de prueba.",
+  "semilla": 20240202,
+  "repeticiones": 2000,
+  "conjuntos": {
+    "principal": {
+      "umbrales_ajuste": {
+        "z_comb": 1.4867586944350877,
+        "z_asc": 1.5797322585172788,
+        "z_des": 2.016026080018641
+      },
+      "huellas_validas": {
+        "control|ajuste": 59601,
+        "control|prueba": 71767,
+        "negativo|ajuste": 16063,
+        "negativo|prueba": 21069,
+        "otro|ajuste": 29848,
+        "otro|prueba": 28281,
+        "positivo|ajuste": 3753,
+        "positivo|prueba": 1902
+      },
+      "metricas_prueba": {
+        "z_comb.sensibilidad": {
+          "valor": 0.7939011566771819,
+          "ic95": [
+            0.5994641168782238,
+            0.8968641865150428
+          ]
+        },
+        "z_comb.falsa_alarma_negativos": {
+          "valor": 0.043001566282215575,
+          "ic95": [
+            0.029549863922879838,
+            0.060479405964455044
+          ]
+        },
+        "z_comb.falsa_alarma_control": {
+          "valor": 0.012791394373458553,
+          "ic95": [
+            0.009948091567783575,
+            0.016097398241934017
+          ]
+        },
+        "z_comb.precision": {
+          "valor": 0.625,
+          "ic95": [
+            0.44940788702182655,
+            0.7128981638477373
+          ]
+        },
+        "z_comb.f1": {
+          "valor": 0.6993978693839741,
+          "ic95": [
+            0.5234991178370457,
+            0.7852343359151444
+          ]
+        },
+        "z_comb.exactitud_balanceada": {
+          "valor": 0.8754497951974831,
+          "ic95": [
+            0.7844490275738468,
+            0.9239717735765078
+          ]
+        },
+        "z_comb.auc_roc": {
+          "valor": 0.9419006769555283,
+          "ic95": [
+            0.894061521314865,
+            0.9703484692082927
+          ]
+        },
+        "z_comb.auc_pr": {
+          "valor": 0.7685081555636304,
+          "ic95": [
+            0.5362523765572281,
+            0.8740239718709267
+          ]
+        },
+        "z_comb.sensibilidad.Destroyed": {
+          "valor": 0.8857350800582242,
+          "ic95": [
+            0.7653883144450655,
+            0.9435754317411558
+          ]
+        },
+        "z_comb.sensibilidad.Damaged": {
+          "valor": 0.7771084337349398,
+          "ic95": [
+            0.5759617021276595,
+            0.887917289486796
+          ]
+        },
+        "z_comb.sensibilidad.Possible damage": {
+          "valor": 0.4530386740331492,
+          "ic95": [
+            0.22176300302715976,
+            0.7236710981065663
+          ]
+        },
+        "z_asc.sensibilidad": {
+          "valor": 0.6498422712933754,
+          "ic95": [
+            0.4561896185385611,
+            0.7863657332173074
+          ]
+        },
+        "z_asc.falsa_alarma_negativos": {
+          "valor": 0.05306374293986425,
+          "ic95": [
+            0.039961996326041034,
+            0.0675632792457815
+          ]
+        },
+        "z_asc.falsa_alarma_control": {
+          "valor": 0.027895829559546868,
+          "ic95": [
+            0.02164173092002966,
+            0.035065822165266144
+          ]
+        },
+        "z_asc.precision": {
+          "valor": 0.5250637213254036,
+          "ic95": [
+            0.31020555502359026,
+            0.6583259431289828
+          ]
+        },
+        "z_asc.f1": {
+          "valor": 0.5808270676691728,
+          "ic95": [
+            0.38063004961533636,
+            0.703635964874376
+          ]
+        },
+        "z_asc.exactitud_balanceada": {
+          "valor": 0.7983892641767556,
+          "ic95": [
+            0.7055316320824984,
+            0.8633094669379846
+          ]
+        },
+        "z_asc.auc_roc": {
+          "valor": 0.9040204587410681,
+          "ic95": [
+            0.8457092268778106,
+            0.9410654461777284
+          ]
+        },
+        "z_asc.auc_pr": {
+          "valor": 0.606680928201251,
+          "ic95": [
+            0.32602271804943034,
+            0.7709975210911296
+          ]
+        },
+        "z_asc.sensibilidad.Destroyed": {
+          "valor": 0.7387190684133915,
+          "ic95": [
+            0.5687777647884031,
+            0.845950115304488
+          ]
+        },
+        "z_asc.sensibilidad.Damaged": {
+          "valor": 0.572289156626506,
+          "ic95": [
+            0.3730042016806723,
+            0.7466666666666667
+          ]
+        },
+        "z_asc.sensibilidad.Possible damage": {
+          "valor": 0.34806629834254144,
+          "ic95": [
+            0.15679614043737014,
+            0.5855285688536409
+          ]
+        },
+        "z_des.sensibilidad": {
+          "valor": 0.713459516298633,
+          "ic95": [
+            0.508341048773166,
+            0.8386415411583196
+          ]
+        },
+        "z_des.falsa_alarma_negativos": {
+          "valor": 0.043096492477099055,
+          "ic95": [
+            0.030221894271872857,
+            0.059586479479334334
+          ]
+        },
+        "z_des.falsa_alarma_control": {
+          "valor": 0.01630275753480012,
+          "ic95": [
+            0.012101977956971169,
+            0.0212193830393575
+          ]
+        },
+        "z_des.precision": {
+          "valor": 0.5991169977924945,
+          "ic95": [
+            0.3880520865062443,
+            0.7067644064647967
+          ]
+        },
+        "z_des.f1": {
+          "valor": 0.6513078953683706,
+          "ic95": [
+            0.44366204789774877,
+            0.756967406059725
+          ]
+        },
+        "z_des.exactitud_balanceada": {
+          "valor": 0.835181511910767,
+          "ic95": [
+            0.7365694423037417,
+            0.8943066724423001
+          ]
+        },
+        "z_des.auc_roc": {
+          "valor": 0.9207282426241673,
+          "ic95": [
+            0.8577223994911752,
+            0.9551327762860813
+          ]
+        },
+        "z_des.auc_pr": {
+          "valor": 0.6751924975036852,
+          "ic95": [
+            0.4203218615115821,
+            0.805080231920095
+          ]
+        },
+        "z_des.sensibilidad.Destroyed": {
+          "valor": 0.7874818049490538,
+          "ic95": [
+            0.620324162287462,
+            0.8773182126316439
+          ]
+        },
+        "z_des.sensibilidad.Damaged": {
+          "valor": 0.7228915662650602,
+          "ic95": [
+            0.5081584699453552,
+            0.8666850828729281
+          ]
+        },
+        "z_des.sensibilidad.Possible damage": {
+          "valor": 0.4281767955801105,
+          "ic95": [
+            0.2117830306234188,
+            0.6839636294991187
+          ]
+        },
+        "p2.A.sensibilidad_s2": {
+          "valor": 0.5297211993687533,
+          "ic95": [
+            0.46590206024497954,
+            0.5642403798465444
+          ]
+        },
+        "p2.A.sensibilidad_s1": {
+          "valor": 0.7943187795896897,
+          "ic95": [
+            0.6005003458289765,
+            0.8971169117623485
+          ]
+        },
+        "p2.A.sensibilidad_union": {
+          "valor": 0.8874276696475539,
+          "ic95": [
+            0.7711528375743185,
+            0.9468563950074137
+          ]
+        },
+        "p2.A.diferencia_union_menos_s2": {
+          "valor": 0.35770647027880065,
+          "ic95": [
+            0.28075767964893034,
+            0.4014342498448511
+          ]
+        },
+        "p2.A.s1_entre_no_detectadas_s2": {
+          "valor": 0.7606263982102909,
+          "ic95": [
+            0.5565926647525293,
+            0.8796422406388519
+          ]
+        },
+        "p2.A.falsa_alarma_s2_negativos": {
+          "valor": 0.02164830991264717,
+          "ic95": [
+            0.01361570029002984,
+            0.030575449208143167
+          ]
+        },
+        "p2.A.falsa_alarma_union_negativos": {
+          "valor": 0.057823775161412835,
+          "ic95": [
+            0.040857558690286816,
+            0.0772640739835171
+          ]
+        },
+        "p2.B.sensibilidad_s2": {
+          "valor": 0.09942135718043135,
+          "ic95": [
+            0.0723879585826337,
+            0.1164909162194457
+          ]
+        },
+        "p2.B.sensibilidad_s1": {
+          "valor": 0.7943187795896897,
+          "ic95": [
+            0.6005003458289765,
+            0.8971169117623485
+          ]
+        },
+        "p2.B.sensibilidad_union": {
+          "valor": 0.8085218306154656,
+          "ic95": [
+            0.6260212828332075,
+            0.9032684795388175
+          ]
+        },
+        "p2.B.diferencia_union_menos_s2": {
+          "valor": 0.7091004734350342,
+          "ic95": [
+            0.5387024247368091,
+            0.8016764271674481
+          ]
+        },
+        "p2.B.s1_entre_no_detectadas_s2": {
+          "valor": 0.7873831775700935,
+          "ic95": [
+            0.5910973317898588,
+            0.8920872029649008
+          ]
+        },
+        "p2.B.falsa_alarma_s2_negativos": {
+          "valor": 0.0021363463729586023,
+          "ic95": [
+            0.0009068393242699969,
+            0.003460495505892828
+          ]
+        },
+        "p2.B.falsa_alarma_union_negativos": {
+          "valor": 0.04405620964679073,
+          "ic95": [
+            0.030500502209693005,
+            0.06165995434011125
+          ]
+        },
+        "persistencia.positivas_detectadas_que_persisten": {
+          "valor": 0.49337748344370863,
+          "ic95": [
+            0.19764553032140178,
+            0.6925833086956027
+          ]
+        }
+      },
+      "p4_estratos_prueba": {
+        "pendiente": {
+          "cortes_ajuste": [
+            6.593011197881911,
+            11.784367723064063
+          ],
+          "tercil_1": {
+            "n_positivas": 162,
+            "n_negativas": 7478,
+            "sensibilidad": 0.8888888888888888,
+            "falsa_alarma_negativos": 0.030489435677988768
+          },
+          "tercil_2": {
+            "n_positivas": 481,
+            "n_negativas": 6206,
+            "sensibilidad": 0.7858627858627859,
+            "falsa_alarma_negativos": 0.05269094424750242
+          },
+          "tercil_3": {
+            "n_positivas": 1259,
+            "n_negativas": 7385,
+            "sensibilidad": 0.7847498014297061,
+            "falsa_alarma_negativos": 0.04752877454299255
+          }
+        },
+        "area_huella": {
+          "cortes_ajuste": [
+            49.49050000000001,
+            85.8908
+          ],
+          "tercil_1": {
+            "n_positivas": 652,
+            "n_negativas": 7126,
+            "sensibilidad": 0.7469325153374233,
+            "falsa_alarma_negativos": 0.05318551782206006
+          },
+          "tercil_2": {
+            "n_positivas": 653,
+            "n_negativas": 6824,
+            "sensibilidad": 0.8545176110260337,
+            "falsa_alarma_negativos": 0.03604923798358734
+          },
+          "tercil_3": {
+            "n_positivas": 597,
+            "n_negativas": 7119,
+            "sensibilidad": 0.7788944723618091,
+            "falsa_alarma_negativos": 0.03947183593201292
+          }
+        },
+        "coherencia_previa": {
+          "cortes_ajuste": [
+            0.8535723105769526,
+            0.9015263596756619
+          ],
+          "tercil_1": {
+            "n_positivas": 1133,
+            "n_negativas": 6187,
+            "sensibilidad": 0.7246248896734334,
+            "falsa_alarma_negativos": 0.05463067722644254
+          },
+          "tercil_2": {
+            "n_positivas": 542,
+            "n_negativas": 6364,
+            "sensibilidad": 0.915129151291513,
+            "falsa_alarma_negativos": 0.0502828409805154
+          },
+          "tercil_3": {
+            "n_positivas": 227,
+            "n_negativas": 8518,
+            "sensibilidad": 0.8502202643171806,
+            "falsa_alarma_negativos": 0.029114815684432964
+          }
+        }
+      },
+      "exploratorio": {
+        "rotulo": "EXPLORATORIO",
+        "variables": [
+          "z_asc",
+          "z_des",
+          "pendiente",
+          "log(area_huella)"
+        ],
+        "coeficientes_estandarizados": [
+          1.5795936727394835,
+          1.536480416069137,
+          0.5336516540705453,
+          0.36405859054607276
+        ],
+        "auc_roc_prueba": 0.9534271475641674,
+        "brier_prueba": 0.032440256002021425,
+        "brier_referencia_prueba": 0.08730613435876106
+      },
+      "p5_r10": {
+        "celdas": 8763,
+        "celdas_sobre_umbral": 40,
+        "rotulo": "estimacion de modelo"
+      },
+      "p5_r9": {
+        "celdas": 1804,
+        "celdas_sobre_umbral": 4,
+        "rotulo": "estimacion de modelo"
+      }
+    },
+    "sensibilidad": {
+      "umbrales_ajuste": {
+        "z_comb": 1.5783866470124015,
+        "z_asc": 1.6553827782418051,
+        "z_des": 2.0697025303233096
+      },
+      "huellas_validas": {
+        "control|ajuste": 92883,
+        "control|prueba": 109882,
+        "negativo|ajuste": 24771,
+        "negativo|prueba": 31562,
+        "otro|ajuste": 46996,
+        "otro|prueba": 43069,
+        "positivo|ajuste": 4135,
+        "positivo|prueba": 2103
+      },
+      "metricas_prueba": {
+        "z_comb.sensibilidad": {
+          "valor": 0.7788873038516405,
+          "ic95": [
+            0.5910849799483024,
+            0.891692005073627
+          ]
+        },
+        "z_comb.falsa_alarma_negativos": {
+          "valor": 0.04080856726443191,
+          "ic95": [
+            0.02749799159310708,
+            0.05742742090341868
+          ]
+        },
+        "z_comb.falsa_alarma_control": {
+          "valor": 0.01110281938807084,
+          "ic95": [
+            0.008718179297398723,
+            0.014035682875777077
+          ]
+        },
+        "z_comb.precision": {
+          "valor": 0.5598086124401914,
+          "ic95": [
+            0.37551575353719063,
+            0.6521984200606868
+          ]
+        },
+        "z_comb.f1": {
+          "valor": 0.6514217538277988,
+          "ic95": [
+            0.4680126950739779,
+            0.7458683345839623
+          ]
+        },
+        "z_comb.exactitud_balanceada": {
+          "valor": 0.8690393682936043,
+          "ic95": [
+            0.7786069487117533,
+            0.9207041626195085
+          ]
+        },
+        "z_comb.auc_roc": {
+          "valor": 0.9416926154871287,
+          "ic95": [
+            0.8967526953982167,
+            0.9695576609717035
+          ]
+        },
+        "z_comb.auc_pr": {
+          "valor": 0.7124252945691387,
+          "ic95": [
+            0.4646923706550298,
+            0.8319041813873811
+          ]
+        },
+        "z_comb.sensibilidad.Destroyed": {
+          "valor": 0.8723684210526316,
+          "ic95": [
+            0.7478239982212952,
+            0.9361473132136728
+          ]
+        },
+        "z_comb.sensibilidad.Damaged": {
+          "valor": 0.7528089887640449,
+          "ic95": [
+            0.5389485514485515,
+            0.8693921916592724
+          ]
+        },
+        "z_comb.sensibilidad.Possible damage": {
+          "valor": 0.43950617283950616,
+          "ic95": [
+            0.21554157101346905,
+            0.7153749439287809
+          ]
+        },
+        "z_asc.sensibilidad": {
+          "valor": 0.628150261531146,
+          "ic95": [
+            0.4270979851681118,
+            0.764623656991661
+          ]
+        },
+        "z_asc.falsa_alarma_negativos": {
+          "valor": 0.05075723971864901,
+          "ic95": [
+            0.03868939905296336,
+            0.06456834316704113
+          ]
+        },
+        "z_asc.falsa_alarma_control": {
+          "valor": 0.026473853770408257,
+          "ic95": [
+            0.020561001498746956,
+            0.033864929475825006
+          ]
+        },
+        "z_asc.precision": {
+          "valor": 0.4519329456038317,
+          "ic95": [
+            0.24455948528958504,
+            0.5785129170324845
+          ]
+        },
+        "z_asc.f1": {
+          "valor": 0.52566653402308,
+          "ic95": [
+            0.3195575323460266,
+            0.6465382140771153
+          ]
+        },
+        "z_asc.exactitud_balanceada": {
+          "valor": 0.7886965109062484,
+          "ic95": [
+            0.6924602595305801,
+            0.8540457169164755
+          ]
+        },
+        "z_asc.auc_roc": {
+          "valor": 0.903966599656382,
+          "ic95": [
+            0.8471920257027058,
+            0.9402469515153778
+          ]
+        },
+        "z_asc.auc_pr": {
+          "valor": 0.5440521736656763,
+          "ic95": [
+            0.2508747630672818,
+            0.7143894544585039
+          ]
+        },
+        "z_asc.sensibilidad.Destroyed": {
+          "valor": 0.7164473684210526,
+          "ic95": [
+            0.5321532999164579,
+            0.8215690420461176
+          ]
+        },
+        "z_asc.sensibilidad.Damaged": {
+          "valor": 0.5337078651685393,
+          "ic95": [
+            0.3269021739130435,
+            0.7029807853666722
+          ]
+        },
+        "z_asc.sensibilidad.Possible damage": {
+          "valor": 0.33827160493827163,
+          "ic95": [
+            0.15364056289221184,
+            0.5769324853228962
+          ]
+        },
+        "z_des.sensibilidad": {
+          "valor": 0.7061340941512125,
+          "ic95": [
+            0.5058113116448603,
+            0.8377200243987453
+          ]
+        },
+        "z_des.falsa_alarma_negativos": {
+          "valor": 0.04467397503326785,
+          "ic95": [
+            0.031396797496969116,
+            0.061410708808151505
+          ]
+        },
+        "z_des.falsa_alarma_control": {
+          "valor": 0.015571249158187875,
+          "ic95": [
+            0.01149882123414816,
+            0.020289706625806488
+          ]
+        },
+        "z_des.precision": {
+          "valor": 0.5129533678756477,
+          "ic95": [
+            0.31111560758921847,
+            0.6318530933873732
+          ]
+        },
+        "z_des.f1": {
+          "valor": 0.5942376950780311,
+          "ic95": [
+            0.38946500646367316,
+            0.7148232551134078
+          ]
+        },
+        "z_des.exactitud_balanceada": {
+          "valor": 0.8307300595589724,
+          "ic95": [
+            0.7338338193046792,
+            0.8915150665363956
+          ]
+        },
+        "z_des.auc_roc": {
+          "valor": 0.9187309037336803,
+          "ic95": [
+            0.858887088486986,
+            0.9539855532448455
+          ]
+        },
+        "z_des.auc_pr": {
+          "valor": 0.5974578872132349,
+          "ic95": [
+            0.3444317693970222,
+            0.7404647226050056
+          ]
+        },
+        "z_des.sensibilidad.Destroyed": {
+          "valor": 0.780921052631579,
+          "ic95": [
+            0.6168515798154734,
+            0.875481448616369
+          ]
+        },
+        "z_des.sensibilidad.Damaged": {
+          "valor": 0.6966292134831461,
+          "ic95": [
+            0.4745762711864407,
+            0.8362710160818713
+          ]
+        },
+        "z_des.sensibilidad.Possible damage": {
+          "valor": 0.42962962962962964,
+          "ic95": [
+            0.21382904186372395,
+            0.7030661078413887
+          ]
+        },
+        "p2.A.sensibilidad_s2": {
+          "valor": 0.5432921027592769,
+          "ic95": [
+            0.4795017012814059,
+            0.5779875023982797
+          ]
+        },
+        "p2.A.sensibilidad_s1": {
+          "valor": 0.7792578496669839,
+          "ic95": [
+            0.591352367259714,
+            0.8916982167162022
+          ]
+        },
+        "p2.A.sensibilidad_union": {
+          "valor": 0.8853472882968602,
+          "ic95": [
+            0.7703782030496986,
+            0.9473872454739026
+          ]
+        },
+        "p2.A.diferencia_union_menos_s2": {
+          "valor": 0.3420551855375833,
+          "ic95": [
+            0.2651464364072485,
+            0.3890861865453204
+          ]
+        },
+        "p2.A.s1_entre_no_detectadas_s2": {
+          "valor": 0.7489583333333333,
+          "ic95": [
+            0.5426224753212349,
+            0.8769621399961853
+          ]
+        },
+        "p2.A.falsa_alarma_s2_negativos": {
+          "valor": 0.02760259863729995,
+          "ic95": [
+            0.018065452389050045,
+            0.039230493519730326
+          ]
+        },
+        "p2.A.falsa_alarma_union_negativos": {
+          "valor": 0.05951513230866741,
+          "ic95": [
+            0.04308550433027019,
+            0.07987945068930728
+          ]
+        },
+        "p2.B.sensibilidad_s2": {
+          "valor": 0.10561370123691723,
+          "ic95": [
+            0.07718181818181818,
+            0.1235062047386618
+          ]
+        },
+        "p2.B.sensibilidad_s1": {
+          "valor": 0.7792578496669839,
+          "ic95": [
+            0.591352367259714,
+            0.8916982167162022
+          ]
+        },
+        "p2.B.sensibilidad_union": {
+          "valor": 0.7978116079923881,
+          "ic95": [
+            0.6168929244991488,
+            0.9018517914734305
+          ]
+        },
+        "p2.B.diferencia_union_menos_s2": {
+          "valor": 0.6921979067554709,
+          "ic95": [
+            0.5316586329685601,
+            0.7865349086446214
+          ]
+        },
+        "p2.B.s1_entre_no_detectadas_s2": {
+          "valor": 0.773936170212766,
+          "ic95": [
+            0.5815385532890492,
+            0.889329273507601
+          ]
+        },
+        "p2.B.falsa_alarma_s2_negativos": {
+          "valor": 0.0038662652511487878,
+          "ic95": [
+            0.0018845411342153476,
+            0.006246193822617382
+          ]
+        },
+        "p2.B.falsa_alarma_union_negativos": {
+          "valor": 0.04262398985897639,
+          "ic95": [
+            0.029037892699299288,
+            0.05954827092926576
+          ]
+        },
+        "persistencia.positivas_detectadas_que_persisten": {
+          "valor": 0.4804639804639805,
+          "ic95": [
+            0.1857260960283378,
+            0.6860092438459606
+          ]
+        }
+      },
+      "p4_estratos_prueba": {
+        "pendiente": {
+          "cortes_ajuste": [
+            6.43601545373511,
+            11.676167212083488
+          ],
+          "tercil_1": {
+            "n_positivas": 171,
+            "n_negativas": 11058,
+            "sensibilidad": 0.8596491228070176,
+            "falsa_alarma_negativos": 0.02821486706456864
+          },
+          "tercil_2": {
+            "n_positivas": 517,
+            "n_negativas": 9296,
+            "sensibilidad": 0.7678916827852998,
+            "falsa_alarma_negativos": 0.04948364888123924
+          },
+          "tercil_3": {
+            "n_positivas": 1415,
+            "n_negativas": 11208,
+            "sensibilidad": 0.7731448763250883,
+            "falsa_alarma_negativos": 0.046038543897216275
+          }
+        },
+        "area_huella": {
+          "cortes_ajuste": [
+            29.943000000000016,
+            71.58490000000002
+          ],
+          "tercil_1": {
+            "n_positivas": 392,
+            "n_negativas": 10822,
+            "sensibilidad": 0.6811224489795918,
+            "falsa_alarma_negativos": 0.05377933838477176
+          },
+          "tercil_2": {
+            "n_positivas": 861,
+            "n_negativas": 10561,
+            "sensibilidad": 0.8048780487804879,
+            "falsa_alarma_negativos": 0.03342486506959568
+          },
+          "tercil_3": {
+            "n_positivas": 850,
+            "n_negativas": 10179,
+            "sensibilidad": 0.7976470588235294,
+            "falsa_alarma_negativos": 0.0346792415757933
+          }
+        },
+        "coherencia_previa": {
+          "cortes_ajuste": [
+            0.8541165451742205,
+            0.9020661886548836
+          ],
+          "tercil_1": {
+            "n_positivas": 1263,
+            "n_negativas": 9442,
+            "sensibilidad": 0.7094220110847189,
+            "falsa_alarma_negativos": 0.053272611734801946
+          },
+          "tercil_2": {
+            "n_positivas": 606,
+            "n_negativas": 9586,
+            "sensibilidad": 0.8993399339933993,
+            "falsa_alarma_negativos": 0.04892551637805132
+          },
+          "tercil_3": {
+            "n_positivas": 234,
+            "n_negativas": 12534,
+            "sensibilidad": 0.8418803418803419,
+            "falsa_alarma_negativos": 0.02521142492420616
+          }
+        }
+      },
+      "exploratorio": {
+        "rotulo": "EXPLORATORIO",
+        "variables": [
+          "z_asc",
+          "z_des",
+          "pendiente",
+          "log(area_huella)"
+        ],
+        "coeficientes_estandarizados": [
+          1.2817961088678917,
+          1.3084983881796513,
+          0.5640979020595964,
+          0.739220127974182
+        ],
+        "auc_roc_prueba": 0.9489027220325471,
+        "brier_prueba": 0.027383871937929655,
+        "brier_referencia_prueba": 0.06505950272580784
+      }
+    }
+  }
+}

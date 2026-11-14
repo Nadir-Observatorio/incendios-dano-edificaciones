@@ -1,0 +1,124 @@
+{
+  "convenciones": [
+    "asc: lv_theta mediana 53.49 grados (radianes en origen, elevacion); incidencia mediana 36.51; lv_phi mediana -164.6 (hacia el satelite)",
+    "des: lv_theta mediana 51.71 grados (radianes en origen, elevacion); incidencia mediana 38.29; lv_phi mediana -15.6 (hacia el satelite)"
+  ],
+  "conjuntos": {
+    "principal": {
+      "control|ajuste": {
+        "huellas": 59601,
+        "validas_asc": 59601,
+        "validas_des": 59601,
+        "validas_comb": 59601,
+        "con_dato_optico": 52340
+      },
+      "control|prueba": {
+        "huellas": 71767,
+        "validas_asc": 71767,
+        "validas_des": 71767,
+        "validas_comb": 71767,
+        "con_dato_optico": 68547
+      },
+      "negativo|ajuste": {
+        "huellas": 16063,
+        "validas_asc": 16063,
+        "validas_des": 16063,
+        "validas_comb": 16063,
+        "con_dato_optico": 16059
+      },
+      "negativo|prueba": {
+        "huellas": 21069,
+        "validas_asc": 21069,
+        "validas_des": 21069,
+        "validas_comb": 21069,
+        "con_dato_optico": 21064
+      },
+      "otro|ajuste": {
+        "huellas": 29848,
+        "validas_asc": 29848,
+        "validas_des": 29848,
+        "validas_comb": 29848,
+        "con_dato_optico": 29667
+      },
+      "otro|prueba": {
+        "huellas": 28281,
+        "validas_asc": 28281,
+        "validas_des": 28281,
+        "validas_comb": 28281,
+        "con_dato_optico": 28108
+      },
+      "positivo|ajuste": {
+        "huellas": 3753,
+        "validas_asc": 3753,
+        "validas_des": 3753,
+        "validas_comb": 3753,
+        "con_dato_optico": 3750
+      },
+      "positivo|prueba": {
+        "huellas": 1902,
+        "validas_asc": 1902,
+        "validas_des": 1902,
+        "validas_comb": 1902,
+        "con_dato_optico": 1901
+      }
+    },
+    "sensibilidad": {
+      "control|ajuste": {
+        "huellas": 92883,
+        "validas_asc": 92882,
+        "validas_des": 92883,
+        "validas_comb": 92883,
+        "con_dato_optico": 81289
+      },
+      "control|prueba": {
+        "huellas": 109882,
+        "validas_asc": 109882,
+        "validas_des": 109882,
+        "validas_comb": 109882,
+        "con_dato_optico": 104751
+      },
+      "negativo|ajuste": {
+        "huellas": 24771,
+        "validas_asc": 24771,
+        "validas_des": 24771,
+        "validas_comb": 24771,
+        "con_dato_optico": 24767
+      },
+      "negativo|prueba": {
+        "huellas": 31562,
+        "validas_asc": 31562,
+        "validas_des": 31562,
+        "validas_comb": 31562,
+        "con_dato_optico": 31555
+      },
+      "otro|ajuste": {
+        "huellas": 46996,
+        "validas_asc": 46996,
+        "validas_des": 46996,
+        "validas_comb": 46996,
+        "con_dato_optico": 46689
+      },
+      "otro|prueba": {
+        "huellas": 43069,
+        "validas_asc": 43069,
+        "validas_des": 43069,
+        "validas_comb": 43069,
+        "con_dato_optico": 42780
+      },
+      "positivo|ajuste": {
+        "huellas": 4135,
+        "validas_asc": 4135,
+        "validas_des": 4135,
+        "validas_comb": 4135,
+        "con_dato_optico": 4132
+      },
+      "positivo|prueba": {
+        "huellas": 2103,
+        "validas_asc": 2103,
+        "validas_des": 2103,
+        "validas_comb": 2103,
+        "con_dato_optico": 2102
+      }
+    }
+  }
+}

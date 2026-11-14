@@ -1,0 +1,82 @@
+cff-version: 1.2.0
+message: "If you use this code or its derived data, please cite it as below."
+title: "Building damage in the Viña del Mar fire, February 2024: Sentinel-1 interferometric coherence validated against Copernicus EMS"
+type: software
+authors:
+  - family-names: "López Barra"
+    given-names: "Camilo"
+license: MIT
+repository-code: "https://github.com/Nadir-Observatorio/incendios-dano-edificaciones"
+url: "https://nadir-observatorio.github.io/"
+keywords:
+  - building damage
+  - InSAR coherence
+  - Sentinel-1
+  - wildfire
+  - Chile
+  - Copernicus EMS
+references:
+  - type: software
+    title: "Hybrid Pluggable Processing Pipeline (HyP3): A cloud-native infrastructure for generic processing of SAR data"
+    authors:
+      - family-names: "Hogenson"
+        given-names: "Kirk"
+      - family-names: "Kristenson"
+        given-names: "Heidi"
+      - family-names: "Kennedy"
+        given-names: "Jake"
+      - family-names: "Johnston"
+        given-names: "Andrew"
+      - family-names: "Rine"
+        given-names: "James"
+      - family-names: "Logan"
+        given-names: "Thomas"
+      - family-names: "Zhu"
+        given-names: "Jiang"
+      - family-names: "Williams"
+        given-names: "Forrest"
+      - family-names: "Herrmann"
+        given-names: "Joseph"
+      - family-names: "Smale"
+        given-names: "Jacquelyn"
+      - family-names: "Meyer"
+        given-names: "Franz"
+    year: 2020
+    doi: "10.5281/zenodo.4646138"
+  - type: software
+    title: "HyP3 ISCE2 plugin"
+    authors:
+      - name: "Alaska Satellite Facility"
+    doi: "10.5281/zenodo.8007397"
+  - type: data
+    title: "Open Buildings"
+    authors:
+      - name: "Google Research"
+    url: "https://sites.research.google/open-buildings/"
+  - type: data
+    title: "[EMSN188] Post-wildfire damage assessment in Valparaiso region, Chile: P08 Detailed damage assessment"
+    authors:
+      - name: "Copernicus Emergency Management Service (© 2024 European Union)"
+    year: 2024
+    url: "https://riskandrecovery.emergency.copernicus.eu/EMSN188"
+  - type: data
+    title: "[EMSR715] Wildfire in Valparaiso region, Chile: Valparaiso (AOI01) Delineation Map, version 2"
+    authors:
+      - name: "Copernicus Emergency Management Service (© 2024 European Union)"
+    year: 2024
+    url: "https://rapidmapping.emergency.copernicus.eu/EMSR715"
+  - type: article
+    title: "Coherence Change-Detection with Sentinel-1 for Natural and Anthropogenic Disaster Monitoring in Urban Areas"
+    authors:
+      - family-names: "Washaya"
+        given-names: "Prosper"
+      - family-names: "Balz"
+        given-names: "Timo"
+      - family-names: "Mohamadi"
+        given-names: "Bahaa"
+    year: 2018
+    journal: "Remote Sensing"
+    volume: 10
+    issue: 7
+    start: 1026
+    doi: "10.3390/rs10071026"
