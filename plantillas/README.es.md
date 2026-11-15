@@ -99,14 +99,20 @@ python -m venv .venv
 python scripts/t01_catalogo.py <salida_catalogo> <EMSN188_GeospatialData.zip>
 python scripts/t02_hyp3.py <carpeta_caso> <banco_hyp3> <registro.txt>
 python scripts/t03_open_buildings.py <banco_open_buildings>
-python scripts/t04_huellas_particion.py <carpeta_caso> <banco_open_buildings> <EMSN188_GeospatialData.zip> <EMSR715_products.zip> <derivados/t04>
-python scripts/t05_senales.py <carpeta_caso> <banco_hyp3> <derivados/t04> <clases.tif> <derivados/t05>
-python scripts/t06_evaluacion.py <carpeta_caso> <derivados/t04> <derivados/t05> <derivados/t06>
-python scripts/t07_sitio.py <carpeta_caso> <EMSN188_GeospatialData.zip> <EMSR715_products.zip>
+copy casos\vina-2024\rutas.ejemplo.toml casos\vina-2024\rutas.toml
+python scripts/t04_huellas_particion.py casos/vina-2024 <carpeta_trabajo>
+python scripts/t05_senales.py casos/vina-2024 <carpeta_trabajo>
+python scripts/t06_evaluacion.py casos/vina-2024 <carpeta_trabajo>
+python scripts/t07_sitio.py casos/vina-2024 <carpeta_trabajo>
 ```
 
-`<carpeta_caso>` contiene los archivos de `protocolo/`. Las tareas comprueban las huellas sha256 del
-protocolo, de las enmiendas, de las referencias y de cada producto antes de calcular. Los pares
+Para `t02_hyp3.py`, `<carpeta_caso>` contiene los archivos de `protocolo/`. Desde `t04`, los parámetros
+del caso salen de [`casos/vina-2024/caso.toml`](casos/vina-2024/caso.toml) y las rutas a los insumos de
+`casos/vina-2024/rutas.toml`, que se copia de `rutas.ejemplo.toml` y se completa (no se sube). `t04` a
+`t07` escriben en `<carpeta_trabajo>/derivados/` y `<carpeta_trabajo>/sitio/`, y cada una se detiene si
+la huella de la etapa anterior registrada en `[fijadas]` de `caso.toml` falta o no calza. Las tareas
+comprueban las huellas sha256 del protocolo, de las enmiendas, de las referencias y de cada producto
+antes de calcular. Los pares
 exactos están en [`resultados/pares_hyp3.json`](resultados/pares_hyp3.json); `clases.tif` es el
 mapa de severidad del [caso hermano](https://github.com/Nadir-Observatorio/incendios-severidad).
 Las referencias de Copernicus EMS se bajan de sus páginas
@@ -124,6 +130,13 @@ Pruebas y calidad: `pytest`, `ruff check scripts tests`, `mypy`.
 - El umbral se fijó para 10 % de falsa alarma en ajuste y dio menos en prueba: los edificios sin daño
   de las dos particiones difieren en el espacio.
 - Sin amplitud del radar: los productos no la traen por fecha (enmienda 02).
+
+## Otros casos
+
+- [Penco y Lirquén, incendios de enero de 2026](casos/penco-2026/): caso cerrado sin cifras de radar.
+  El producto de grado de Copernicus EMS EMSR859 para esa zona marca con un solo grado, "Possibly
+  damaged", casi todas las edificaciones dentro del área quemada. Como no distingue el daño de cada una,
+  el caso no se puede comparar con Viña.
 
 ## Datos y licencias
 

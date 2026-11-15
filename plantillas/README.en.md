@@ -91,8 +91,11 @@ in [`protocolo/`](protocolo/) (Spanish), with their sha256 hashes.
 
 Requirements: Python 3.12, a free [Earthdata Login](https://urs.earthdata.nasa.gov/) account and
 about 15 GB of free space. Commands and arguments are listed in the Spanish README; each task checks
-the sha256 hashes of the protocol, amendments, references and every product before computing. Exact
-pairs: [`resultados/pares_hyp3.json`](resultados/pares_hyp3.json). The Copernicus EMS references are
+the sha256 hashes of the protocol, amendments, references and every product before computing. From
+`t04` on, case parameters come from [`casos/vina-2024/caso.toml`](casos/vina-2024/caso.toml) and input
+paths from `casos/vina-2024/rutas.toml`, copied from `rutas.ejemplo.toml` and filled in (not uploaded);
+`t04` to `t07` take `casos/vina-2024 <carpeta_trabajo>` and each stops if the previous stage's hash in
+`[fijadas]` of `caso.toml` is missing or does not match. Exact pairs: [`resultados/pares_hyp3.json`](resultados/pares_hyp3.json). The Copernicus EMS references are
 downloaded from their pages ([EMSN188](https://riskandrecovery.emergency.copernicus.eu/EMSN188),
 [EMSR715](https://rapidmapping.emergency.copernicus.eu/EMSR715)) and are not redistributed here.
 
@@ -107,6 +110,13 @@ Tests and quality: `pytest`, `ruff check scripts tests`, `mypy`.
 - The threshold was set for 10 % false alarms on tuning and gave fewer on test: buildings without
   damage differ in space between partitions.
 - No radar amplitude: the products do not provide it per date (amendment 02).
+
+## Other cases
+
+- [Penco and Lirquén, January 2026 wildfires](casos/penco-2026/): closed case without radar figures.
+  The Copernicus EMS EMSR859 grading product for that area marks almost every building inside the burnt
+  area with a single grade, "Possibly damaged". Since it does not distinguish the damage to each one, the
+  case cannot be compared with Viña.
 
 ## Data and licences
 
