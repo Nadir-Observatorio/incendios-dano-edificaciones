@@ -1,16 +1,18 @@
-"""Tarea 06 del caso de dano a edificaciones (etapa E5). Se corre UNA vez.
+"""Tarea 06 del caso de dano a edificaciones. Se corre UNA vez por carpeta de trabajo.
 
 Fija los umbrales en la particion de ajuste (percentil 90 de la senal en los negativos de ajuste) y
 evalua la particion de prueba una sola vez, con intervalos por remuestreo de bloques. Responde P1 a P5
-del protocolo sellado con las enmiendas 01 y 02.
+del protocolo sellado del caso.
 
-Uso: python t06_evaluacion.py <carpeta_caso> <carpeta_t04> <carpeta_t05> <carpeta_salida>
+Uso:
+  python t06_evaluacion.py <carpeta_caso> <carpeta_trabajo>
+
+Lee `<carpeta_trabajo>/derivados/t04/` y `t05/`, y escribe en `<carpeta_trabajo>/derivados/t06/`.
 """
 
 from __future__ import annotations
 
 import datetime as dt
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -20,27 +22,14 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
-VERIFICAR_CASO = {
-    "PROTOCOLO_dano-edificaciones_sellado_2026-11-11.md": "de1993790a4e7485aeef3d64749a490dd735679feb5575263bc61ca727387f5d",
-    "ENMIENDA_01_2026-11-11.md": "8ff741dde5bb5b2bbf391fe7652e5088640c2c02b0ac4c28818d0419a122bc1e",
-    "ENMIENDA_02_2026-11-11.md": "82f1000d908f662e9e24596232a0832b493aa767d117af95012dd724d4341b27",
-}
-PARTICION_SHA256 = "2eaf84510b7c100ae5ca1f216ad7eb6c2f347bee011bb9b05fac81a4a7a61d2e"
-SENALES_SHA256 = "76cf0a233ae0eb5d6cea644170f5a253d03dc75d8c3e7b87961307c070b0869b"
+import caso as caso_mod
+from caso import sha256
 
-SEMILLA = 20240202
-N_BOOT = 2000
-PERCENTIL = 90.0
-SENALES = ["z_comb", "z_asc", "z_des"]
+# Valores del caso de origen (Vina 2024). Solo los usan las pruebas; las tareas leen caso.toml.
 GRADOS = {3: "Destroyed", 2: "Damaged", 1: "Possible damage"}
 
-
-def sha256(ruta: Path) -> str:
-    h = hashlib.sha256()
-    with ruta.open("rb") as f:
-        for bloque in iter(lambda: f.read(1 << 22), b""):
-            h.update(bloque)
-    return h.hexdigest()
+N_BOOT = 2000
+PERCENTIL = 90.0
 
 
 def auc_ponderada(s: np.ndarray, y: np.ndarray, w: np.ndarray) -> float:
@@ -60,6 +49,8 @@ def auc_ponderada(s: np.ndarray, y: np.ndarray, w: np.ndarray) -> float:
 
 def ap_ponderada(s: np.ndarray, y: np.ndarray, w: np.ndarray) -> float:
     """Precision promedio (area bajo precision-sensibilidad) con pesos."""
+    if len(s) == 0:
+        return float("nan")
     orden = np.argsort(-s, kind="mergesort")
     y, w = y[orden], w[orden]
     vp = np.cumsum(w * y)
@@ -71,7 +62,9 @@ def ap_ponderada(s: np.ndarray, y: np.ndarray, w: np.ndarray) -> float:
     return float(np.sum(precision * w * y) / tp)
 
 
-def metricas(d: pd.DataFrame, w: np.ndarray, umbrales: dict[str, float]) -> dict[str, float]:
+def metricas(
+    d: pd.DataFrame, w: np.ndarray, umbrales: dict[str, float], grados: dict[int, str] = GRADOS
+) -> dict[str, float]:
     m: dict[str, float] = {}
     pos = (d["rol"] == "positivo").to_numpy()
     neg = (d["rol"] == "negativo").to_numpy()
@@ -94,7 +87,7 @@ def metricas(d: pd.DataFrame, w: np.ndarray, umbrales: dict[str, float]) -> dict
         sel = (pos | neg) & ok
         m[f"{senal}.auc_roc"] = auc_ponderada(v[sel], pos[sel].astype(float), w[sel])
         m[f"{senal}.auc_pr"] = ap_ponderada(v[sel], pos[sel].astype(float), w[sel])
-        for g, nombre in GRADOS.items():
+        for g, nombre in grados.items():
             sg = pos & ok & (d["grado"].to_numpy() == g)
             m[f"{senal}.sensibilidad.{nombre}"] = (w * (sg & det)).sum() / (w * sg).sum() if (w * sg).sum() else np.nan
     # P2: optico (Etapa 1) frente a radar (z_comb) en las mismas huellas positivas con ambos datos
@@ -132,56 +125,62 @@ def metricas(d: pd.DataFrame, w: np.ndarray, umbrales: dict[str, float]) -> dict
 
 
 def main() -> int:
-    if len(sys.argv) != 5:
+    if len(sys.argv) != 3:
         print(__doc__)
         return 2
-    caso, t04, t05, salida = map(Path, sys.argv[1:])
+    carpeta_caso, trabajo = map(Path, sys.argv[1:])
+    caso = caso_mod.cargar(carpeta_caso)
+    t04, t05 = trabajo / "derivados" / "t04", trabajo / "derivados" / "t05"
+    salida = trabajo / "derivados" / "t06"
     if (salida / "metricas.json").exists():
         print("FALLO la evaluacion de prueba ya se hizo; no se repite")
         return 1
     salida.mkdir(parents=True, exist_ok=True)
-    print(f"== inicio {dt.datetime.now().isoformat(timespec='seconds')}")
-    for nombre, esperado in VERIFICAR_CASO.items():
-        if sha256(caso / nombre) != esperado:
-            print(f"FALLO huella de {nombre}")
-            return 1
-    if sha256(t04 / "particion.csv") != PARTICION_SHA256 or sha256(t05 / "senales_huellas.parquet") != SENALES_SHA256:
+    print(f"== inicio {dt.datetime.now().isoformat(timespec='seconds')} caso {caso.nombre}")
+    for linea in caso_mod.verificar_documentos(caso):
+        print(linea)
+    if sha256(t04 / "particion.csv") != caso.fijada("particion_sha256") or sha256(
+        t05 / "senales_huellas.parquet"
+    ) != caso.fijada("senales_sha256"):
         print("FALLO huella de la particion o de las senales")
         return 1
     print("verificados protocolo, enmiendas, particion y senales")
 
+    semilla = caso.semilla
+    grados = caso.grados
+    etiqueta = str(caso.referencia["etiqueta"])
     senales = pd.read_parquet(t05 / "senales_huellas.parquet")
     resultado: dict[str, Any] = {
         "nota": "Evaluacion unica de la particion de prueba. Umbral: percentil 90 de cada senal en los "
         "negativos de ajuste. Intervalos 95 % por remuestreo de bloques H3 r8 de prueba.",
-        "semilla": SEMILLA,
+        "semilla": semilla,
         "repeticiones": N_BOOT,
         "conjuntos": {},
     }
+    columnas = ["id_huella", "rol", "grado", "particion", "h3_r8", "h3_r9", "h3_r10", "en_aoi", "area_in_meters"]
+    if caso.p5_modo == "centro_celda":
+        columnas += ["p5_elegible_r10", "p5_elegible_r9"]
     celdas_salida: dict[str, pd.DataFrame] = {}
-    for conjunto in ("principal", "sensibilidad"):
-        h = pd.read_parquet(
-            t04 / f"huellas_{conjunto}.parquet",
-            columns=["id_huella", "rol", "grado", "particion", "h3_r8", "h3_r9", "h3_r10", "en_aoi", "area_in_meters"],
-        )
+    for conjunto in caso.conjuntos:
+        h = pd.read_parquet(t04 / f"huellas_{conjunto}.parquet", columns=columnas)
         d = h.merge(senales, on="id_huella", how="left")
         aj = d[d["particion"] == "ajuste"]
         pr = d[d["particion"] == "prueba"].reset_index(drop=True)
 
         umbrales = {}
-        for s in SENALES:
+        for s in caso.senales:
             neg = aj.loc[(aj["rol"] == "negativo") & np.isfinite(aj[s]), s].to_numpy()
             umbrales[s] = float(np.percentile(neg, PERCENTIL))
         print(f"[{conjunto}] umbrales (ajuste): {umbrales}")
 
-        punto = metricas(pr, np.ones(len(pr)), umbrales)
+        punto = metricas(pr, np.ones(len(pr)), umbrales, grados)
         bloques = pr["h3_r8"].to_numpy()
         ub, inv = np.unique(bloques, return_inverse=True)
-        rng = np.random.default_rng(SEMILLA)
+        rng = np.random.default_rng(semilla)
         muestras: dict[str, list[float]] = {k: [] for k in punto}
         for _ in range(N_BOOT):
             mult = np.bincount(rng.integers(0, len(ub), len(ub)), minlength=len(ub))
-            mb = metricas(pr, mult[inv].astype(float), umbrales)
+            mb = metricas(pr, mult[inv].astype(float), umbrales, grados)
             for k, v in mb.items():
                 muestras[k].append(v)
         tabla = {
@@ -205,7 +204,7 @@ def main() -> int:
             estratos[nombre] = {"cortes_ajuste": [float(c) for c in cortes]}
             for t in range(3):
                 sub = pr[(ter == t) & np.isfinite(pr[var].to_numpy())]
-                mm = metricas(sub, np.ones(len(sub)), {"z_comb": umbrales["z_comb"]})
+                mm = metricas(sub, np.ones(len(sub)), {"z_comb": umbrales["z_comb"]}, grados)
                 estratos[nombre][f"tercil_{t + 1}"] = {
                     "n_positivas": int((sub["rol"] == "positivo").sum()),
                     "n_negativas": int((sub["rol"] == "negativo").sum()),
@@ -249,10 +248,13 @@ def main() -> int:
         }
         print(f"[{conjunto}] P1 sensibilidad z_comb {tabla['z_comb.sensibilidad']}")
 
-        # P5: celdas fuera del area de EMSN188 (estimacion de modelo)
+        # P5: celdas fuera de la zona de negativos (estimacion de modelo)
         if conjunto == "principal":
-            fuera = d[~d["en_aoi"] & np.isfinite(d["z_comb"])]
             for res in (10, 9):
+                if caso.p5_modo == "fuera_zona":
+                    fuera = d[~d["en_aoi"] & np.isfinite(d["z_comb"])]
+                else:
+                    fuera = d[d[f"p5_elegible_r{res}"] & np.isfinite(d["z_comb"])]
                 c = (
                     fuera.groupby(f"h3_r{res}")
                     .agg(n_huellas=("id_huella", "size"), z_comb_mediana=("z_comb", "median"))
@@ -271,23 +273,19 @@ def main() -> int:
             todas["det_s1"] = todas["z_comb"] >= umbrales["z_comb"]
             todas["det_s2"] = todas["optico_A"] > 0.5
             for res in (10, 9):
-                c = (
-                    todas.groupby(f"h3_r{res}")
-                    .agg(
-                        n_huellas=("id_huella", "size"),
-                        n_emsn188=("rol", lambda r: int((r == "positivo").sum())),
-                        n_detectadas_s1=("det_s1", "sum"),
-                        n_detectadas_s2=("det_s2", "sum"),
-                        n_detectadas_union=(
-                            "det_s1",
-                            lambda x, todas=todas: int((x | todas.loc[x.index, "det_s2"]).sum()),
-                        ),
-                        z_coherencia_mediana=("z_comb", "median"),
-                        en_aoi_emsn188=("en_aoi", "max"),
-                    )
-                    .reset_index()
-                    .rename(columns={f"h3_r{res}": "celda"})
-                )
+                agregados: dict[str, Any] = {
+                    "n_huellas": ("id_huella", "size"),
+                    f"n_{etiqueta}": ("rol", lambda r: int((r == "positivo").sum())),
+                    "n_detectadas_s1": ("det_s1", "sum"),
+                    "n_detectadas_s2": ("det_s2", "sum"),
+                    "n_detectadas_union": (
+                        "det_s1",
+                        lambda x, todas=todas: int((x | todas.loc[x.index, "det_s2"]).sum()),
+                    ),
+                    "z_coherencia_mediana": ("z_comb", "median"),
+                    f"en_aoi_{etiqueta}": ("en_aoi", "max"),
+                }
+                c = todas.groupby(f"h3_r{res}").agg(**agregados).reset_index().rename(columns={f"h3_r{res}": "celda"})
                 celdas_salida[f"celdas_r{res}"] = c
 
     for nombre, c in celdas_salida.items():

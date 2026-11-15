@@ -1,21 +1,24 @@
-"""Tarea 05 del caso de dano a edificaciones (etapa E4).
+"""Tarea 05 del caso de dano a edificaciones: senales por pixel y por huella.
 
-Senales por pixel y por huella: coherencia previa, `z` del evento y `z` posterior por geometria, mascara
-de inversion y sombra, pendiente, y deteccion optica de la Etapa 1. No fija umbrales ni calcula
-metricas; eso es la tarea 06, que evalua la particion de prueba una sola vez. El resumen de esta tarea
-solo informa cuantas huellas tienen dato, sin distribuciones de la senal por rol.
+Coherencia previa, `z` del evento y `z` posterior por orbita, mascara de inversion y sombra, pendiente, y
+deteccion optica. Las orbitas de un mismo grupo (ascendente o descendente) se promedian por huella; la
+`z` combinada es la media de los dos grupos. Con una orbita por grupo, como en Vina, es la media de la
+ascendente y la descendente. No fija umbrales ni calcula metricas; eso es la tarea 06, que evalua la
+particion de prueba una sola vez.
 
 Uso:
-  python t05_senales.py <carpeta_caso> <carpeta_banco_hyp3> <carpeta_t04> <clases_tif> <carpeta_salida>
+  python t05_senales.py <carpeta_caso> <carpeta_trabajo>
+
+Lee `<carpeta_trabajo>/derivados/t04/` y escribe en `<carpeta_trabajo>/derivados/t05/`.
 """
 
 from __future__ import annotations
 
 import datetime as dt
-import hashlib
 import json
 import sys
 import tomllib
+import warnings
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -28,16 +31,13 @@ import shapely
 from rasterio.transform import from_origin
 from rasterio.warp import Resampling, reproject, transform_bounds
 
-VERIFICAR = {
-    "PROTOCOLO_dano-edificaciones_sellado_2026-11-11.md": "de1993790a4e7485aeef3d64749a490dd735679feb5575263bc61ca727387f5d",
-    "ENMIENDA_01_2026-11-11.md": "8ff741dde5bb5b2bbf391fe7652e5088640c2c02b0ac4c28818d0419a122bc1e",
-    "ENMIENDA_02_2026-11-11.md": "82f1000d908f662e9e24596232a0832b493aa767d117af95012dd724d4341b27",
-}
-PARTICION_SHA256 = "2eaf84510b7c100ae5ca1f216ad7eb6c2f347bee011bb9b05fac81a4a7a61d2e"
-CLASES_CONTENT_SHA256 = "ef09b76717fc2855e0fcaf1cd939ecf2e69e6ea7ea416c9f4618e050244f6902"
+import caso as caso_mod
+from caso import sha256
 
-OESTE, SUR, ESTE, NORTE = -71.60, -33.13, -71.38, -32.94
+# Valores del caso de origen (Vina 2024). Solo los usan las pruebas; las tareas leen caso.toml.
+CAJA = (-71.60, -33.13, -71.38, -32.94)
 CRS = "EPSG:32719"
+
 RES = 20.0
 PREVIOS = [f"previo{i}" for i in range(1, 7)]
 MIN_PREVIOS = 4
@@ -47,16 +47,8 @@ FRACCION_VALIDA_MIN = 0.5
 AZIMUT_ESPERADO = {"asc": 180.0, "des": 0.0}
 
 
-def sha256(ruta: Path) -> str:
-    h = hashlib.sha256()
-    with ruta.open("rb") as f:
-        for bloque in iter(lambda: f.read(1 << 22), b""):
-            h.update(bloque)
-    return h.hexdigest()
-
-
-def grilla() -> tuple[rasterio.Affine, tuple[int, int]]:
-    x0, y0, x1, y1 = transform_bounds("EPSG:4326", CRS, OESTE, SUR, ESTE, NORTE)
+def grilla(caja: tuple[float, float, float, float] = CAJA, crs: str = CRS) -> tuple[rasterio.Affine, tuple[int, int]]:
+    x0, y0, x1, y1 = transform_bounds("EPSG:4326", crs, *caja)
     x0 = np.floor(x0 / RES) * RES
     y1 = np.ceil(y1 / RES) * RES
     ancho = int(np.ceil((x1 - x0) / RES))
@@ -64,7 +56,7 @@ def grilla() -> tuple[rasterio.Affine, tuple[int, int]]:
     return from_origin(x0, y1, RES, RES), (alto, ancho)
 
 
-def capa(zip_ruta: Path, sufijo: str, transform: rasterio.Affine, forma: tuple[int, int]) -> np.ndarray:
+def capa(zip_ruta: Path, sufijo: str, transform: rasterio.Affine, forma: tuple[int, int], crs: str = CRS) -> np.ndarray:
     with zipfile.ZipFile(zip_ruta) as z:
         nombre = next(n for n in z.namelist() if n.endswith(f"_{sufijo}.tif"))
     destino = np.full(forma, np.nan, dtype="float32")
@@ -75,7 +67,7 @@ def capa(zip_ruta: Path, sufijo: str, transform: rasterio.Affine, forma: tuple[i
             src_nodata=0.0,
             dst_nodata=np.nan,
             dst_transform=transform,
-            dst_crs=CRS,
+            dst_crs=crs,
             resampling=Resampling.bilinear,
         )
     return destino
@@ -95,8 +87,15 @@ def angulo_dif(a: np.ndarray | float, b: float) -> np.ndarray | float:
 
 
 def mascara_geometria(
-    theta: np.ndarray, phi: np.ndarray, dem: np.ndarray, geometria: str, registro: list[str]
+    theta: np.ndarray,
+    phi: np.ndarray,
+    dem: np.ndarray,
+    geometria: str,
+    registro: list[str],
+    etiqueta: str | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
+    """Mascara de inversion y sombra. `geometria` es la direccion ('asc' o 'des'); `etiqueta`, la orbita."""
+    nombre = etiqueta if etiqueta is not None else geometria
     t = theta[np.isfinite(theta)]
     p = phi[np.isfinite(phi)]
     med_t = float(np.median(t))
@@ -120,9 +119,9 @@ def mascara_geometria(
         azim = phi + 180.0
         conv_p = "opuesto, se suma 180"
     else:
-        raise ValueError(f"{geometria}: mediana de lv_phi {med_p:.1f} grados no calza con lo esperado")
+        raise ValueError(f"{nombre}: mediana de lv_phi {med_p:.1f} grados no calza con lo esperado")
     registro.append(
-        f"{geometria}: lv_theta mediana {med_t:.2f} grados ({'radianes' if unidad_rad else 'grados'} en origen, "
+        f"{nombre}: lv_theta mediana {med_t:.2f} grados ({'radianes' if unidad_rad else 'grados'} en origen, "
         f"{conv_t}); incidencia mediana {float(np.nanmedian(incid)):.2f}; lv_phi mediana {med_p:.1f} ({conv_p})"
     )
     dzdy_fila, dzdx = np.gradient(dem.astype("float64"), RES)
@@ -180,7 +179,30 @@ def ponderar(
     return pd.DataFrame(filas_out)
 
 
-def escribir_tif(ruta: Path, arr: np.ndarray, transform: rasterio.Affine) -> None:
+def combinar_por_grupo(tabla: pd.DataFrame, grupos: dict[str, list[str]]) -> pd.DataFrame:
+    """Columnas por grupo y combinada a partir de las columnas por orbita ya enmascaradas.
+
+    Un grupo con una sola orbita del mismo nombre (Vina) no agrega columnas: ya son las del grupo. Un grupo
+    con varias orbitas agrega `z_<grupo>`, `zpost_<grupo>`, `cohprev_<grupo>` como media de las orbitas
+    validas y `valida_<grupo>` si alguna lo es. La combinada es la media de los grupos con dato.
+    """
+    for grupo, ids in grupos.items():
+        if ids == [grupo]:
+            continue
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=RuntimeWarning)
+            for pre in ("z", "zpost", "cohprev"):
+                pila = np.vstack([tabla[f"{pre}_{o}"].to_numpy(dtype=float) for o in ids])
+                tabla[f"{pre}_{grupo}"] = np.nanmean(pila, axis=0)
+        tabla[f"valida_{grupo}"] = np.any(np.vstack([tabla[f"valida_{o}"].to_numpy() for o in ids]), axis=0)
+    with np.errstate(invalid="ignore"):
+        tabla["z_comb"] = np.nanmean(np.vstack([tabla["z_asc"], tabla["z_des"]]), axis=0)
+        tabla["zpost_comb"] = np.nanmean(np.vstack([tabla["zpost_asc"], tabla["zpost_des"]]), axis=0)
+        tabla["cohprev_comb"] = np.nanmean(np.vstack([tabla["cohprev_asc"], tabla["cohprev_des"]]), axis=0)
+    return tabla
+
+
+def escribir_tif(ruta: Path, arr: np.ndarray, transform: rasterio.Affine, crs: str = CRS) -> None:
     with rasterio.open(
         ruta,
         "w",
@@ -189,7 +211,7 @@ def escribir_tif(ruta: Path, arr: np.ndarray, transform: rasterio.Affine) -> Non
         width=arr.shape[1],
         count=1,
         dtype="float32",
-        crs=CRS,
+        crs=crs,
         transform=transform,
         nodata=np.nan,
         compress="deflate",
@@ -200,56 +222,63 @@ def escribir_tif(ruta: Path, arr: np.ndarray, transform: rasterio.Affine) -> Non
 
 
 def main() -> int:
-    if len(sys.argv) != 6:
+    if len(sys.argv) != 3:
         print(__doc__)
         return 2
-    caso, banco, t04, clases_tif, salida = map(Path, sys.argv[1:])
+    carpeta_caso, trabajo = map(Path, sys.argv[1:])
+    caso = caso_mod.cargar(carpeta_caso)
+    t04 = trabajo / "derivados" / "t04"
+    salida = trabajo / "derivados" / "t05"
+    if (salida / "senales_huellas.parquet").exists():
+        print("FALLO ya existen las senales en la carpeta de trabajo; no se sobrescriben")
+        return 1
     salida.mkdir(parents=True, exist_ok=True)
-    print(f"== inicio {dt.datetime.now().isoformat(timespec='seconds')}")
-    for nombre, esperado in VERIFICAR.items():
-        h = sha256(caso / nombre)
-        if h != esperado:
-            print(f"FALLO huella de {nombre}: {h}")
-            return 1
-        print(f"verificado {nombre}")
+    print(f"== inicio {dt.datetime.now().isoformat(timespec='seconds')} caso {caso.nombre}")
+    for linea in caso_mod.verificar_documentos(caso):
+        print(linea)
     h = sha256(t04 / "particion.csv")
-    if h != PARTICION_SHA256:
+    if h != caso.fijada("particion_sha256"):
         print(f"FALLO huella de la particion: {h}")
         return 1
     print("verificada la particion de la tarea 04")
 
+    banco = caso.ruta("banco_hyp3")
     proc = tomllib.loads((banco / "procedencia.toml").read_text(encoding="utf-8"))
     archivos = proc["archivo"]
     print(f"productos registrados: {len(archivos)}")
     for a in archivos:
-        h = sha256(banco / a["nombre"])
-        if h != a["sha256"]:
+        if sha256(banco / a["nombre"]) != a["sha256"]:
             print(f"FALLO huella de {a['nombre']}")
             return 1
-    print("huellas de los 56 productos verificadas")
+    print(f"huellas de los {len(archivos)} productos verificadas")
     with zipfile.ZipFile(banco / archivos[0]["nombre"]) as zf:
         readme = next(n for n in zf.namelist() if n.endswith("_README.md.txt"))
         lineas_dem = [x.strip() for x in zf.read(readme).decode("utf-8", "replace").splitlines() if "DEM" in x]
     for linea in lineas_dem[:6]:
         print(f"README (DEM): {linea}")
 
-    transform, forma = grilla()
-    print(f"grilla comun {CRS} {forma[1]} x {forma[0]} pixeles de {RES:.0f} m")
+    crs = caso.crs
+    transform, forma = grilla(caso.caja, crs)
+    print(f"grilla comun {crs} {forma[1]} x {forma[0]} pixeles de {RES:.0f} m")
     registro: list[str] = []
     capas: dict[str, np.ndarray] = {}
     validos: dict[str, np.ndarray] = {}
     pendientes = []
-    for geometria in ("asc", "des"):
-        propios = [a for a in archivos if a["geometria"] == geometria]
+    for orbita in caso.orbitas:
+        oid = orbita.id
+        propios = [a for a in archivos if a["geometria"] == oid]
+        if not propios:
+            print(f"FALLO no hay productos de la orbita {oid} en el banco")
+            return 1
         coh: dict[str, np.ndarray] = {}
         for rol in [*PREVIOS, "evento", "posterior"]:
             zs = [banco / a["nombre"] for a in propios if a["rol"] == rol]
-            coh[rol] = mosaico([capa(z, "corr", transform, forma) for z in zs])
+            coh[rol] = mosaico([capa(z, "corr", transform, forma, crs) for z in zs])
         evento = [banco / a["nombre"] for a in propios if a["rol"] == "evento"]
-        theta = mosaico([capa(z, "lv_theta", transform, forma) for z in evento])
-        phi = mosaico([capa(z, "lv_phi", transform, forma) for z in evento])
-        dem = mosaico([capa(z, "dem", transform, forma) for z in evento])
-        geo_ok, pend = mascara_geometria(theta, phi, dem, geometria, registro)
+        theta = mosaico([capa(z, "lv_theta", transform, forma, crs) for z in evento])
+        phi = mosaico([capa(z, "lv_phi", transform, forma, crs) for z in evento])
+        dem = mosaico([capa(z, "dem", transform, forma, crs) for z in evento])
+        geo_ok, pend = mascara_geometria(theta, phi, dem, orbita.direccion, registro, oid)
         pendientes.append(pend)
         pila = np.stack([coh[r] for r in PREVIOS])
         n_prev = np.sum(np.isfinite(pila), axis=0)
@@ -261,13 +290,13 @@ def main() -> int:
         z = np.where(base & np.isfinite(coh["evento"]), (m - coh["evento"]) / s_ef, np.nan)
         zp = np.where(base & np.isfinite(coh["posterior"]), (m - coh["posterior"]) / s_ef, np.nan)
         m_ok = np.where(base, m, np.nan)
-        for clave, arr in ((f"z_{geometria}", z), (f"zpost_{geometria}", zp), (f"cohprev_{geometria}", m_ok)):
+        for clave, arr in ((f"z_{oid}", z), (f"zpost_{oid}", zp), (f"cohprev_{oid}", m_ok)):
             capas[clave] = arr.astype("float32")
             validos[clave] = np.isfinite(arr)
-            escribir_tif(salida / f"{clave}.tif", arr, transform)
-        escribir_tif(salida / f"mascara_geometria_{geometria}.tif", geo_ok.astype("float32"), transform)
+            escribir_tif(salida / f"{clave}.tif", arr, transform, crs)
+        escribir_tif(salida / f"mascara_geometria_{oid}.tif", geo_ok.astype("float32"), transform, crs)
         print(
-            f"{geometria}: pixeles con z valida {int(np.isfinite(z).sum())} de {z.size}; "
+            f"{oid}: pixeles con z valida {int(np.isfinite(z).sum())} de {z.size}; "
             f"inversion o sombra {int((~geo_ok & np.isfinite(dem)).sum())}"
         )
     for r in registro:
@@ -275,43 +304,42 @@ def main() -> int:
     pendiente = mosaico(pendientes)
     capas["pendiente"] = pendiente
     validos["pendiente"] = np.isfinite(pendiente)
-    escribir_tif(salida / "pendiente.tif", pendiente, transform)
+    escribir_tif(salida / "pendiente.tif", pendiente, transform, crs)
 
     huellas = gpd.read_parquet(t04 / "huellas_sensibilidad.parquet")
     geoms = shapely.buffer(huellas.geometry.to_numpy(), AMPLIACION_M)
     print(f"huellas a ponderar: {len(geoms)}")
     tabla = ponderar(geoms, transform, forma, capas, validos)
     tabla.insert(0, "id_huella", huellas["id_huella"].to_numpy())
-    for g in ("asc", "des"):
-        tabla[f"valida_{g}"] = tabla[f"frac_z_{g}"] >= FRACCION_VALIDA_MIN
-        tabla.loc[~tabla[f"valida_{g}"], [f"z_{g}", f"zpost_{g}", f"cohprev_{g}"]] = np.nan
-    za = tabla["z_asc"].to_numpy()
-    zd = tabla["z_des"].to_numpy()
-    with np.errstate(invalid="ignore"):
-        tabla["z_comb"] = np.nanmean(np.vstack([za, zd]), axis=0)
-        tabla["zpost_comb"] = np.nanmean(np.vstack([tabla["zpost_asc"], tabla["zpost_des"]]), axis=0)
-        tabla["cohprev_comb"] = np.nanmean(np.vstack([tabla["cohprev_asc"], tabla["cohprev_des"]]), axis=0)
+    for orbita in caso.orbitas:
+        o = orbita.id
+        tabla[f"valida_{o}"] = tabla[f"frac_z_{o}"] >= FRACCION_VALIDA_MIN
+        tabla.loc[~tabla[f"valida_{o}"], [f"z_{o}", f"zpost_{o}", f"cohprev_{o}"]] = np.nan
+    tabla = combinar_por_grupo(tabla, caso.grupos)
 
-    with rasterio.open(clases_tif) as r:
+    col_clase = caso.columna_clase
+    with rasterio.open(caso.ruta("clases_tif")) as r:
         cl = r.read(1)
         cent = huellas.geometry.centroid
+        if rasterio.crs.CRS.from_user_input(crs) != r.crs:
+            cent = cent.to_crs(r.crs)
         filas, cols = rasterio.transform.rowcol(r.transform, cent.x.to_numpy(), cent.y.to_numpy())
     filas, cols = np.asarray(filas), np.asarray(cols)
     dentro = (filas >= 0) & (filas < cl.shape[0]) & (cols >= 0) & (cols < cl.shape[1])
     clase = np.zeros(len(huellas), dtype=int)
     clase[dentro] = cl[filas[dentro], cols[dentro]]
-    tabla["clase_etapa1"] = clase
+    tabla[col_clase] = clase
     tabla["optico_A"] = np.where(clase > 0, clase >= 4, np.nan)
     tabla["optico_B"] = np.where(clase > 0, clase >= 5, np.nan)
 
     tabla.to_parquet(salida / "senales_huellas.parquet", index=False)
     conjuntos_res: dict[str, Any] = {}
     resumen: dict[str, Any] = {"convenciones": registro, "conjuntos": conjuntos_res}
-    for nombre in ("principal", "sensibilidad"):
-        h = pd.read_parquet(t04 / f"huellas_{nombre}.parquet", columns=["id_huella", "rol", "particion"])
-        j = h.merge(tabla[["id_huella", "valida_asc", "valida_des", "z_comb", "clase_etapa1"]], on="id_huella")
+    for nombre in caso.conjuntos:
+        hh = pd.read_parquet(t04 / f"huellas_{nombre}.parquet", columns=["id_huella", "rol", "particion"])
+        j = hh.merge(tabla[["id_huella", "valida_asc", "valida_des", "z_comb", col_clase]], on="id_huella")
         j["valida_comb"] = np.isfinite(j["z_comb"])
-        j["con_optico"] = j["clase_etapa1"] > 0
+        j["con_optico"] = j[col_clase] > 0
         conjuntos_res[nombre] = {
             f"{rol}|{part}": {
                 "huellas": len(g),
