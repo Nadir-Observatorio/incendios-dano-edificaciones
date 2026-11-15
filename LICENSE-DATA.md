@@ -4,7 +4,7 @@ El código de este repositorio está bajo licencia MIT (`LICENSE`). Este archivo
 
 ## Resultados derivados
 
-`resultados/*.json` y `figuras/*.png` se publican bajo
+`resultados/*.json`, `figuras/*.png` y los informes de `casos/penco-2026/derivados/` se publican bajo
 [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.es).
 
 Atribución: **Camilo López Barra, geógrafo. Daño a edificaciones en el incendio de Viña del Mar,
@@ -21,6 +21,8 @@ Contienen información derivada de:
 | Copernicus EMS, EMSN188 P08 Detailed damage assessment | Referencia de daño | Copernicus Emergency Management Service (© 2024 European Union), [EMSN188] |
 | Copernicus EMS, EMSR715 AOI01 Delineation Map v2 | Control lejano y verificación | Copernicus Emergency Management Service (© 2024 European Union), [EMSR715] |
 | Severidad de Sentinel-2 (Nadir, caso hermano), CC BY 4.0 | Detección óptica | Contains modified Copernicus Sentinel data 2024 |
+| Google Open Buildings, tesela 967 (caso Penco 2026), usado bajo CC BY 4.0 | Huellas para los informes de Penco | Google Open Buildings, CC BY 4.0 |
+| Copernicus EMS, EMSR859 Conception (AOI04) Grading Map v2 (caso Penco 2026) | Inspección de la referencia; caso cerrado sin cifras de radar | Copernicus Emergency Management Service (© 2026 European Union), [EMSR859] Conception (AOI04): Grading Map |
 
 Los productos de Copernicus EMS, los productos de HyP3 y las huellas no se redistribuyen aquí: se
 bajan de sus fuentes con los scripts. Los datos de Copernicus EMS se pueden reproducir, distribuir,

@@ -49,6 +49,7 @@ shapely==2.2.0
 tenacity==9.2.1
 threadpoolctl==3.8.0
 tqdm==4.70.1
+truststore==0.10.5
 typing_extensions==4.16.0
 tzdata==2026.6
 tzlocal==5.4.5

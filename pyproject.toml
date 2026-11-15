@@ -25,6 +25,7 @@ python_version = "3.12"
 strict = true
 files = ["scripts", "tests"]
 explicit_package_bases = true
+mypy_path = "scripts"
 
 [[tool.mypy.overrides]]
 module = ["rasterio.*", "scipy.*", "shapely.*", "pyogrio.*", "geopandas.*", "h3.*", "asf_search.*", "hyp3_sdk.*", "s2sphere.*", "sklearn.*", "matplotlib.*", "PIL.*", "pandas.*", "requests.*"]

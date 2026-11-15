@@ -1,5 +1,6 @@
 # Productos de HyP3, huellas y derivados se bajan o se calculan; nunca se suben.
 derivados/
+!casos/*/derivados/
 sitio/
 sitio.nuevo/
 catalogo/
@@ -13,3 +14,6 @@ __pycache__/
 .venv/
 .mypy_cache/
 .ruff_cache/
+
+# Rutas locales de cada caso: se copian de rutas.ejemplo.toml y no se suben.
+casos/*/rutas.toml
