@@ -1,0 +1,291 @@
+{
+  "zip": "EMSR859_products.zip",
+  "zip_sha256": "d8c07cfdff3724a7cc2ce0f659ef464b24cf9dd9eb6fe5dea018a79a39958601",
+  "productos_api": [
+    {
+      "tipo": "DEL",
+      "monitoreo": 2,
+      "version": 1,
+      "entrega": "2026-01-24T06:01:40.259833",
+      "imagenes": [
+        "Legion 2026-01-23T23:21:00",
+        "Legion 2026-01-23T23:21:00"
+      ]
+    },
+    {
+      "tipo": "GRA",
+      "monitoreo": 0,
+      "version": 2,
+      "entrega": "2026-01-29T19:07:35.884727",
+      "imagenes": [
+        "SPOT-6-7 2026-01-25T14:46:00"
+      ]
+    },
+    {
+      "tipo": "DEL",
+      "monitoreo": 1,
+      "version": 1,
+      "entrega": "2026-01-22T23:38:15.235194",
+      "imagenes": [
+        "Sentinel-2 2026-01-22T14:37:00"
+      ]
+    },
+    {
+      "tipo": "DEL",
+      "monitoreo": 3,
+      "version": 1,
+      "entrega": "2026-01-24T22:42:09.159797",
+      "imagenes": [
+        "Pleiades 2026-01-24T14:33:00"
+      ]
+    },
+    {
+      "tipo": "DEL",
+      "monitoreo": 0,
+      "version": 2,
+      "entrega": "2026-01-22T16:35:34.262522",
+      "imagenes": [
+        "PlanetScope 2026-01-21T15:25:00"
+      ]
+    }
+  ],
+  "area": {
+    "numero": 4,
+    "nombre": "Conception"
+  },
+  "productos_en_zip": [
+    "EMSR859_AOI04_DEL_MONIT01_v1.zip",
+    "EMSR859_AOI04_DEL_MONIT02_v1.zip",
+    "EMSR859_AOI04_DEL_MONIT03_v1.zip",
+    "EMSR859_AOI04_DEL_PRODUCT_v2.zip",
+    "EMSR859_AOI04_GRA_PRODUCT_v2.zip"
+  ],
+  "capas_producto_grado": {
+    "EMSR859_AOI04_GRA_PRODUCT_areaOfInterestA_v2": {
+      "elementos": 1,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "emsr_id",
+        "glide_no",
+        "area_id",
+        "locality",
+        "map_type"
+      ],
+      "hectareas": 47070.7
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_builtUpP_v2": {
+      "elementos": 6765,
+      "tipos_geometria": [
+        "Point"
+      ],
+      "campos": [
+        "obj_type",
+        "name",
+        "info",
+        "simplified",
+        "damage_gra",
+        "det_method",
+        "notation",
+        "or_src_id",
+        "dmg_src_id",
+        "cd_value"
+      ],
+      "damage_gra": {
+        "Possibly damaged": 6765
+      }
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_facilitiesA_v2": {
+      "elementos": 13,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "obj_type",
+        "name",
+        "info",
+        "simplified",
+        "damage_gra",
+        "det_method",
+        "notation",
+        "or_src_id",
+        "dmg_src_id",
+        "cd_value"
+      ],
+      "hectareas": 2.1,
+      "damage_gra": {
+        "Possibly damaged": 10,
+        "Damaged": 3
+      }
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_facilitiesP_v2": {
+      "elementos": 2,
+      "tipos_geometria": [
+        "Point"
+      ],
+      "campos": [
+        "obj_type",
+        "name",
+        "info",
+        "simplified",
+        "damage_gra",
+        "det_method",
+        "notation",
+        "or_src_id",
+        "dmg_src_id",
+        "cd_value"
+      ],
+      "damage_gra": {
+        "Possibly damaged": 2
+      }
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_imageFootprintA_v2": {
+      "elementos": 2,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "obj_type",
+        "or_src_id"
+      ],
+      "hectareas": 147527.5
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_naturalLandUseA_v2": {
+      "elementos": 7181,
+      "tipos_geometria": [
+        "MultiPolygon",
+        "Polygon"
+      ],
+      "campos": [
+        "obj_type",
+        "name",
+        "info",
+        "damage_gra",
+        "det_method",
+        "notation",
+        "or_src_id",
+        "dmg_src_id",
+        "cd_value"
+      ],
+      "hectareas": 12781.3,
+      "damage_gra": {
+        "Affected": 7181
+      }
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_notAnalysedA_v2": {
+      "elementos": 135,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "obj_type",
+        "or_src_id"
+      ],
+      "hectareas": 268.4
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_observedEventA_v2": {
+      "elementos": 3930,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "event_type",
+        "obj_desc",
+        "det_method",
+        "notation",
+        "dmg_src_id",
+        "area"
+      ],
+      "hectareas": 12781.3
+    },
+    "EMSR859_AOI04_GRA_PRODUCT_transportationL_v2": {
+      "elementos": 9848,
+      "tipos_geometria": [
+        "LineString"
+      ],
+      "campos": [
+        "obj_type",
+        "name",
+        "info",
+        "simplified",
+        "damage_gra",
+        "det_method",
+        "notation",
+        "or_src_id",
+        "dmg_src_id",
+        "cd_value"
+      ],
+      "damage_gra": {
+        "No visible damage": 9848
+      }
+    }
+  },
+  "capas_delineacion_monit03": {
+    "EMSR859_AOI04_DEL_MONIT03_areaOfInterestA_v1": {
+      "elementos": 1,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "emsr_id",
+        "glide_no",
+        "area_id",
+        "locality",
+        "map_type"
+      ],
+      "hectareas": 47070.7
+    },
+    "EMSR859_AOI04_DEL_MONIT03_imageFootprintA_v1": {
+      "elementos": 2,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "obj_type",
+        "or_src_id"
+      ],
+      "hectareas": 1212403.0
+    },
+    "EMSR859_AOI04_DEL_MONIT03_observedEventA_v1": {
+      "elementos": 862,
+      "tipos_geometria": [
+        "Polygon"
+      ],
+      "campos": [
+        "event_type",
+        "obj_desc",
+        "det_method",
+        "notation",
+        "dmg_src_id",
+        "area"
+      ],
+      "hectareas": 13672.8
+    },
+    "EMSR859_AOI04_DEL_MONIT03_observedEventP_v1": {
+      "elementos": 3,
+      "tipos_geometria": [
+        "Point"
+      ],
+      "campos": [
+        "event_type",
+        "obj_desc",
+        "det_method",
+        "notation",
+        "dmg_src_id"
+      ]
+    }
+  },
+  "valores_no_fijados_en_puntos": [],
+  "deteccion_1": {
+    "detener": false,
+    "motivos": []
+  },
+  "deteccion_2": {
+    "detener": false,
+    "elementos_builtUpA_con_grado": 0
+  },
+  "area_quemada_en_producto_grado": true,
+  "area_interes_en_producto_grado": true,
+  "area_quemada_en_monit03": true
+}

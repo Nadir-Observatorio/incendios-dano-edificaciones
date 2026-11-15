@@ -1,0 +1,268 @@
+{
+  "generado": "2026-11-14T13:50:52-03:00",
+  "penco": {
+    "puntos": 6765,
+    "por_grado": {
+      "Destroyed": {
+        "puntos": 0,
+        "dentro_quemado": 0
+      },
+      "Damaged": {
+        "puntos": 0,
+        "dentro_quemado": 0
+      },
+      "Possibly damaged": {
+        "puntos": 6765,
+        "dentro_quemado": 6763
+      }
+    },
+    "campos": {
+      "obj_type": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "11-Residential Buildings": 6765
+        }
+      },
+      "name": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "Unknown": 6765
+        }
+      },
+      "info": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "997-Not Applicable": 6765
+        }
+      },
+      "simplified": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "Residential": 6765
+        }
+      },
+      "damage_gra": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "Possibly damaged": 6765
+        }
+      },
+      "det_method": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "Photo-interpretation": 6765
+        }
+      },
+      "notation": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "Building point": 6765
+        }
+      },
+      "or_src_id": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "994": 6765
+        }
+      },
+      "dmg_src_id": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "2": 6765
+        }
+      },
+      "cd_value": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "Not Applicable": 6765
+        }
+      }
+    },
+    "area_quemada_ha": 12781.3,
+    "puntos_dentro_quemado": 6763,
+    "fraccion_puntos_dentro_quemado": 0.9997,
+    "distancia_al_quemado_m": {
+      "0 (dentro)": 6763,
+      "(0, 10]": 2,
+      "(10, 50]": 0,
+      "(50, 100]": 0,
+      "(100, 500]": 0,
+      "(500, 1000]": 0,
+      "(1000, 2000]": 0,
+      "> 2000": 0
+    },
+    "conjuntos": {
+      "principal": {
+        "umbral_confianza": 0.75,
+        "huellas_en_caja": 116361,
+        "puntos_por_metodo": {
+          "dentro": 4435,
+          "cercano": 1906,
+          "sin_huella": 424
+        },
+        "fraccion_puntos_sin_huella": 0.0627,
+        "huellas_con_punto": 4469,
+        "huellas_centroide_en_quemado": 4423,
+        "huellas_en_quemado_con_punto": 4420,
+        "fraccion_huellas_en_quemado_con_punto": 0.9993,
+        "huellas_a_1km_o_menos_fuera_del_quemado": 23708,
+        "huellas_a_1km_o_menos_fuera_con_punto": 49,
+        "fraccion_huellas_con_punto_dentro_quemado": 0.989
+      },
+      "sensibilidad": {
+        "umbral_confianza": 0.65,
+        "huellas_en_caja": 179380,
+        "puntos_por_metodo": {
+          "dentro": 6765
+        },
+        "fraccion_puntos_sin_huella": 0.0,
+        "huellas_con_punto": 6763,
+        "huellas_centroide_en_quemado": 6756,
+        "huellas_en_quemado_con_punto": 6751,
+        "fraccion_huellas_en_quemado_con_punto": 0.9993,
+        "huellas_a_1km_o_menos_fuera_del_quemado": 36890,
+        "huellas_a_1km_o_menos_fuera_con_punto": 12,
+        "fraccion_huellas_con_punto_dentro_quemado": 0.9982
+      }
+    },
+    "area_interes_ha": 47070.7,
+    "referencia": "EMSR859 AOI04 producto de grado v2 (builtUpP, observedEventA)"
+  },
+  "vina": {
+    "puntos": 7275,
+    "por_grado": {
+      "Destroyed": {
+        "puntos": 5694,
+        "dentro_quemado": 1224
+      },
+      "Damaged": {
+        "puntos": 570,
+        "dentro_quemado": 79
+      },
+      "Possible damage": {
+        "puntos": 1011,
+        "dentro_quemado": 124
+      }
+    },
+    "campos": {
+      "event_type": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "11": 7275
+        }
+      },
+      "det_method": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "1": 7275
+        }
+      },
+      "notation": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "2": 7275
+        }
+      },
+      "damage_gra": {
+        "distintos": 3,
+        "nulos": 0,
+        "valores": {
+          "3": 5694,
+          "1": 1011,
+          "2": 570
+        }
+      },
+      "aoi_id": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "01": 7275
+        }
+      },
+      "or_src_id": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "1": 7275
+        }
+      },
+      "dmg_src_id": {
+        "distintos": 1,
+        "nulos": 0,
+        "valores": {
+          "2": 7275
+        }
+      }
+    },
+    "area_quemada_ha": 8718.2,
+    "puntos_dentro_quemado": 1427,
+    "fraccion_puntos_dentro_quemado": 0.1962,
+    "distancia_al_quemado_m": {
+      "0 (dentro)": 1427,
+      "(0, 10]": 1737,
+      "(10, 50]": 2744,
+      "(50, 100]": 921,
+      "(100, 500]": 446,
+      "(500, 1000]": 0,
+      "(1000, 2000]": 0,
+      "> 2000": 0
+    },
+    "conjuntos": {
+      "principal": {
+        "umbral_confianza": 0.75,
+        "huellas_en_caja": 232284,
+        "puntos_por_metodo": {
+          "dentro": 4546,
+          "cercano": 2560,
+          "sin_huella": 169
+        },
+        "fraccion_puntos_sin_huella": 0.0232,
+        "huellas_con_punto": 5655,
+        "huellas_centroide_en_quemado": 1608,
+        "huellas_en_quemado_con_punto": 1068,
+        "fraccion_huellas_en_quemado_con_punto": 0.6642,
+        "huellas_a_1km_o_menos_fuera_del_quemado": 60345,
+        "huellas_a_1km_o_menos_fuera_con_punto": 4587,
+        "fraccion_huellas_con_punto_dentro_quemado": 0.1889
+      },
+      "sensibilidad": {
+        "umbral_confianza": 0.65,
+        "huellas_en_caja": 355401,
+        "puntos_por_metodo": {
+          "dentro": 5077,
+          "cercano": 2152,
+          "sin_huella": 46
+        },
+        "fraccion_puntos_sin_huella": 0.0063,
+        "huellas_con_punto": 6238,
+        "huellas_centroide_en_quemado": 2574,
+        "huellas_en_quemado_con_punto": 1214,
+        "fraccion_huellas_en_quemado_con_punto": 0.4716,
+        "huellas_a_1km_o_menos_fuera_del_quemado": 90833,
+        "huellas_a_1km_o_menos_fuera_con_punto": 5024,
+        "fraccion_huellas_con_punto_dentro_quemado": 0.1946
+      }
+    },
+    "referencia": "EMSN188 P08 (puntos) y EMSR715 AOI01 v2 (area quemada)"
+  },
+  "deteccion_1_lectura_estricta": {
+    "detener": true,
+    "grados_ausentes": [
+      "Damaged",
+      "Destroyed"
+    ]
+  }
+}

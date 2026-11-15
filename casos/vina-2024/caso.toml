@@ -1,0 +1,142 @@
+# Caso Vina del Mar 2024 (incendio del 2 y 3 de febrero de 2024). Valores tomados de los scripts que
+# produjeron los resultados publicados el 2026-11-11; no cambian.
+nombre = "vina-2024"
+
+[metodo]
+caja = [-71.6, -33.13, -71.38, -32.94]
+crs = "EPSG:32719"
+semilla = 20240202
+radio_empareje_m = 10.0
+control_dist_m = 2000.0
+teselas_open_buildings = ["967_buildings.csv.gz", "969_buildings.csv.gz"]
+senales = ["z_comb", "z_asc", "z_des"]
+columna_clase_optica = "clase_etapa1"
+
+[metodo.conjuntos]
+principal = 0.75
+sensibilidad = 0.65
+
+[grados]
+3 = "Destroyed"
+2 = "Damaged"
+1 = "Possible damage"
+
+[[documento]]
+clave = "protocolo"
+archivo = "PROTOCOLO_dano-edificaciones_sellado_2026-11-11.md"
+sha256 = "de1993790a4e7485aeef3d64749a490dd735679feb5575263bc61ca727387f5d"
+
+[[documento]]
+clave = "enmienda_01"
+archivo = "ENMIENDA_01_2026-11-11.md"
+sha256 = "8ff741dde5bb5b2bbf391fe7652e5088640c2c02b0ac4c28818d0419a122bc1e"
+en_resumen_t04 = true
+
+[[documento]]
+clave = "enmienda_02"
+archivo = "ENMIENDA_02_2026-11-11.md"
+sha256 = "82f1000d908f662e9e24596232a0832b493aa767d117af95012dd724d4341b27"
+
+[[orbita]]
+id = "asc"
+direccion = "asc"
+grupo = "asc"
+
+[[orbita]]
+id = "des"
+direccion = "des"
+grupo = "des"
+
+[referencia]
+tipo = "emsn188_emsr715"
+etiqueta = "emsn188"
+etiqueta_control = "emsr715"
+clave_puntos = "puntos_p08"
+clave_completitud = "fraccion_area_p18_cubierta"
+sha256 = "443e7c353f392c56124004a9ae3b2dfc1dbb1af26d9fd0fef31f610cb5dafed3"
+gdb = "Geospatial_data/GDB/EMSN188_STD_UTM19S_r02_v01.gdb"
+capa_puntos = "P08DDA_DamageAssessmentP"
+campo_grado = "damage_gra"
+capa_zona = "P00_aoi"
+capa_asentamientos = "P18HUST_HumanSettlements"
+control_sha256 = "aa31440615508ba60cba1fe3da0c9e980d308d6547d76a7a0bf21a81b0a25905"
+control_producto = "EMSR715_AOI01_DEL_PRODUCT_v2.zip"
+control_producto_sha256 = "7742f03b8191187757e09d1f318b4001786612bd8b3c223e4023e9a662b67eb8"
+control_capa_area = "areaOfInterestA_v2"
+control_capa_quemado = "observedEventA_v2"
+
+[p5]
+modo = "fuera_zona"
+
+[fijadas]
+particion_sha256 = "2eaf84510b7c100ae5ca1f216ad7eb6c2f347bee011bb9b05fac81a4a7a61d2e"
+senales_sha256 = "76cf0a233ae0eb5d6cea644170f5a253d03dc75d8c3e7b87961307c070b0869b"
+metricas_sha256 = "70960bb68a8f85c5427f7a21e063a3e2fc9362e8803a1559e4b99f35970686e0"
+
+[sitio]
+caso = "Daño a edificaciones en el incendio de Viña del Mar, febrero de 2024"
+licencia = "CC BY 4.0"
+avisos = [
+  "Contains modified Copernicus Sentinel data 2023-2024, processed by ESA.",
+  "Sentinel-1 Burst InSAR products processed by ASF DAAC HyP3 2026 using ISCE software (hyp3_isce2 3.0.2, ISCE 2.6.5).",
+  "Copernicus Emergency Management Service (© 2024 European Union), EMSN188 P08 Detailed damage assessment, y EMSR715 AOI01 Delineation Map v2.",
+  "Google Open Buildings (CC BY 4.0).",
+  "Severidad de Sentinel-2: Nadir, incendio de Viña del Mar 2024 (CC BY 4.0).",
+]
+linea_fuente = "Fuente: Nadir. Sentinel-1 (Copernicus, procesado por ASF HyP3), Copernicus EMS EMSN188 y EMSR715, Google Open Buildings. CC BY 4.0. No validado por Copernicus EMS, SENAPRED ni MINVU."
+lectura = "Dano probable segun radar; no es un dictamen sobre cada vivienda. Copernicus EMS, SENAPRED y MINVU no validaron estos resultados."
+barras = [
+  ["Sentinel-2", "p2.A.sensibilidad_s2"],
+  ["Sentinel-1", "p2.A.sensibilidad_s1"],
+  ["Unión", "p2.A.sensibilidad_union"],
+  ["Destroyed\n(Sentinel-1)", "z_comb.sensibilidad.Destroyed"],
+  ["Damaged\n(Sentinel-1)", "z_comb.sensibilidad.Damaged"],
+  ["Possible damage\n(Sentinel-1)", "z_comb.sensibilidad.Possible damage"],
+]
+
+[sitio.figuras]
+coherencia = "fig_coherencia_z.png"
+optico_vs_union = "fig_optico_vs_union.png"
+sensibilidad = "fig_sensibilidad.png"
+p5 = "fig_p5_fuera_emsn188.png"
+
+[sitio.rotulos]
+zona = "Área analizada por EMSN188"
+quemado = "Área quemada EMSR715"
+celda_sobre_umbral = "Celda con señal sobre el umbral"
+barra_z = "Pérdida de coherencia (z), recortada a 0-5"
+barra_fraccion = "Fracción detectada"
+eje_sensibilidad = "Sensibilidad en prueba (IC 95 % por bloques)"
+titulo_optico_vs_union = "Edificaciones con daño según EMSN188 detectadas por cada sensor (celdas H3 res. 10)\nMapa con todas las edificaciones dañadas; las cifras publicadas son de la partición de prueba"
+titulo_p5 = "Celdas H3 res. 10 fuera de EMSN188 con señal sobre el umbral (estimación de modelo)"
+paneles = ["Sentinel-2 (óptico)", "Sentinel-2 o Sentinel-1 (radar)"]
+
+[sitio.alt]
+coherencia = "Mapa de la pérdida de coherencia del radar Sentinel-1 entre antes y después del incendio en Viña del Mar y alrededores, con el contorno del área analizada por Copernicus EMSN188 y el área quemada de EMSR715."
+optico_vs_union = "Dos mapas de celdas hexagonales comparan qué fracción de las edificaciones con daño según EMSN188 detecta Sentinel-2 solo y Sentinel-2 junto con Sentinel-1."
+sensibilidad = "Gráfico de barras con intervalos que compara la fracción de edificaciones dañadas detectada por Sentinel-2, Sentinel-1 y ambos, y por Sentinel-1 según el grado de daño."
+p5 = "Mapa de las pocas celdas fuera del área de EMSN188 donde la señal del radar supera el umbral, dispersas y lejos del área quemada de EMSR715."
+
+[sitio.definiciones]
+umbral_z = "Percentil 90 de la senal combinada en los negativos de ajuste"
+puntos = "Puntos de dano de EMSN188 P08"
+fraccion_puntos_sin_huella = "Puntos de EMSN188 sin huella de Google a 10 m o menos"
+p5 = "P5, {k} (estimacion de modelo)"
+verificacion_p5 = "Cruce de P5 con EMSR715 AOI01 v2"
+
+[sitio.cifras]
+p1_sensibilidad_radar = ["principal", "z_comb.sensibilidad", "Fraccion de edificaciones con dano segun EMSN188 detectadas por el radar (prueba)"]
+p1_sensibilidad_destruidas = ["principal", "z_comb.sensibilidad.Destroyed", "Idem, grado Destroyed"]
+p1_sensibilidad_danadas = ["principal", "z_comb.sensibilidad.Damaged", "Idem, grado Damaged"]
+p1_sensibilidad_posible_dano = ["principal", "z_comb.sensibilidad.Possible damage", "Idem, grado Possible damage"]
+p2_sensibilidad_optico = ["principal", "p2.A.sensibilidad_s2", "Fraccion detectada por Sentinel-2 (Etapa 1, umbral A) en las mismas edificaciones"]
+p2_sensibilidad_union = ["principal", "p2.A.sensibilidad_union", "Fraccion detectada por optico o radar"]
+p2_suma_del_radar = ["principal", "p2.A.diferencia_union_menos_s2", "Union menos optico solo"]
+p2_rescate_radar = ["principal", "p2.A.s1_entre_no_detectadas_s2", "Fraccion detectada por el radar entre las que el optico no detecto"]
+p3_falsa_alarma_negativos = ["principal", "z_comb.falsa_alarma_negativos", "Edificaciones sin dano registrado en el area de EMSN188 marcadas por el radar"]
+p3_falsa_alarma_control = ["principal", "z_comb.falsa_alarma_control", "Edificaciones a mas de 2 km del area quemada de EMSR715 marcadas por el radar"]
+p3_precision = ["principal", "z_comb.precision", "Fraccion de marcas del radar con dano registrado"]
+auc_roc = ["principal", "z_comb.auc_roc", "Area bajo la curva ROC de la senal combinada"]
+p4_sensibilidad_ascendente = ["principal", "z_asc.sensibilidad", "Sensibilidad solo con la orbita ascendente"]
+p4_sensibilidad_descendente = ["principal", "z_des.sensibilidad", "Sensibilidad solo con la orbita descendente"]
+robustez_sensibilidad_radar_065 = ["sensibilidad", "z_comb.sensibilidad", "Sensibilidad del radar con huellas de confianza >= 0,65"]

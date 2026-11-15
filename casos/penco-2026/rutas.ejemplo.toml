@@ -1,0 +1,8 @@
+# Rutas a los insumos del caso Penco 2026. Copiar como rutas.toml (no se sube) y completar cada ruta.
+# Las rutas relativas se leen desde la raiz del repositorio.
+protocolo = "casos/penco-2026"
+open_buildings = "<banco>/google-open-buildings"            # carpeta con 967_buildings.csv.gz
+referencia_zip = "<banco>/emsr859/EMSR859_products.zip"     # t03b_emsr859.py lo baja aqui con su procedencia
+banco_hyp3 = "<banco>/sentinel1-hyp3/penco-2026"            # no se uso: el caso se cerro antes de pedir trabajos
+banco_sentinel2 = "<banco>/sentinel2-l2a/penco-2026"        # no se uso
+clases_tif = "<trabajo>/derivados/optico/clases_optico.tif" # no se uso

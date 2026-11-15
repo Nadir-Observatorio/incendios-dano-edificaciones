@@ -1,0 +1,8 @@
+# Rutas a los insumos del caso Vina 2024. Copiar como rutas.toml (no se sube) y completar cada ruta.
+# Las rutas relativas se leen desde la raiz del repositorio.
+protocolo = "protocolo"
+open_buildings = "<banco>/google-open-buildings"            # carpeta con 967_buildings.csv.gz y 969_buildings.csv.gz
+referencia_zip = "<banco>/EMSN188_GeospatialData.zip"
+control_zip = "<banco>/EMSR715_products.zip"
+banco_hyp3 = "<banco>/sentinel1-hyp3/vina-2024"             # productos de HyP3 con su procedencia.toml
+clases_tif = "<banco>/clases.tif"                           # mapa de severidad del caso hermano

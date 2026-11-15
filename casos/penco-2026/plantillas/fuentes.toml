@@ -1,0 +1,5 @@
+# Archivos de donde salen las cifras de README.md y README.en.md (rutas relativas a la carpeta del caso).
+caso = "caso.toml"
+insp = "derivados/t03b/inspeccion_emsr859.json"
+refs = "derivados/t03c/referencias.json"
+proc = "procedencia_emsr859_2026-11-14.toml"

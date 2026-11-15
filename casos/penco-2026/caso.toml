@@ -1,0 +1,66 @@
+# Caso Penco y Lirquen 2026 (incendios del 17 y 18 de enero de 2026). Parametros del protocolo sellado el
+# 2026-11-14 (sha256 en [[documento]]). Las huellas de [fijadas] se agregan al cerrar cada etapa.
+nombre = "penco-2026"
+
+[metodo]
+caja = [-73.059, -36.948, -72.769, -36.618]
+crs = "EPSG:32718"
+semilla = 20260117
+radio_empareje_m = 10.0
+control_dist_m = 2000.0
+teselas_open_buildings = ["967_buildings.csv.gz"]
+senales = ["z_comb", "z_asc", "z_des", "z_asc091", "z_asc164"]
+columna_clase_optica = "clase_optico"
+
+[metodo.conjuntos]
+principal = 0.75
+sensibilidad = 0.65
+
+[grados]
+3 = "Destroyed"
+2 = "Damaged"
+1 = "Possibly damaged"
+
+[[documento]]
+clave = "protocolo"
+archivo = "PROTOCOLO_dano-edificaciones_penco-2026_sellado_2026-11-14.md"
+sha256 = "ec6a3cd5651314d6d4ea40149a0e29795103d0802c0d1229d8fa4b6445a43f44"
+
+# Enmienda 01: detencion 1 cumplida (EMSR859 area 4 solo trae "Possibly damaged", asignado por perimetro).
+# El caso se cierra sin evaluar el radar; no se escribe particion ni se registran huellas en [fijadas].
+[[documento]]
+clave = "enmienda_01"
+archivo = "ENMIENDA_01_penco-2026_2026-11-14.md"
+sha256 = "f699019d0b0edd02709f815894f15cec6a278ba9053ff004fc076975e60208f9"
+
+[[orbita]]
+id = "asc091"
+direccion = "asc"
+grupo = "asc"
+
+[[orbita]]
+id = "asc164"
+direccion = "asc"
+grupo = "asc"
+
+[[orbita]]
+id = "des156"
+direccion = "des"
+grupo = "des"
+
+[referencia]
+tipo = "emsr859_rapid_mapping"
+etiqueta = "emsr859"
+etiqueta_control = "emsr859"
+clave_puntos = "puntos_emsr859"
+activacion = "EMSR859"
+api = "https://rapidmapping.emergency.copernicus.eu/backend/dashboard-api/public-activations/?code=EMSR859"
+aoi = 4
+version_puntos = 2
+distancia_zona_negativos_m = 1000.0
+valores_grado = { "Destroyed" = 3, "Damaged" = 2, "Possibly damaged" = 1 }
+
+[p5]
+modo = "centro_celda"
+
+[fijadas]

@@ -1,0 +1,25 @@
+# Procedencia de la descarga de EMSR859 del 2026-11-14, escrita por scripts/t03b_emsr859.py.
+# Registro para comparar huellas; no se copia al banco. Los archivos no se redistribuyen aqui.
+
+[fuente]
+organismo = "Copernicus Emergency Management Service (Comision Europea)"
+conjunto = "EMSR859, incendios de Biobio y Nuble de enero de 2026, productos"
+fuente_pagina = "https://rapidmapping.emergency.copernicus.eu/EMSR859"
+licencia = "Copernicus-EMS"
+atribucion = "(c) European Union, 2026. Copernicus Emergency Management Service, EMSR859. Se cita; no se redistribuye"
+
+[[archivo]]
+nombre = "api_EMSR859_2026-11-14.json"
+url = "https://rapidmapping.emergency.copernicus.eu/backend/dashboard-api/public-activations/?code=EMSR859"
+fecha_descarga = "2026-11-14T13:35:19-03:00"
+bytes = 52091
+sha256 = "14183a8447c937395bbfe68b3781e7d5ac3de651fc2814d59ecb47103d736493"
+
+[[archivo]]
+nombre = "EMSR859_products.zip"
+url = "https://rapidmapping.emergency.copernicus.eu/backend/EMSR859/EMSR859_products.zip"
+ultima_modificacion_servidor = "Fri, 30 Jan 2026 15:45:23 GMT"
+metodo = "descarga por la tarea"
+fecha_descarga = "2026-11-14T13:35:19-03:00"
+bytes = 740725752
+sha256 = "d8c07cfdff3724a7cc2ce0f659ef464b24cf9dd9eb6fe5dea018a79a39958601"
